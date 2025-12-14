@@ -115,23 +115,32 @@ async def send_message_stream(request: SendMessageRequest):
     """
     async def generate_stream():
         try:
-            async for message in adk_app.async_stream_query(
+            # NOTE: Replace with your actual ADK call
+            async for event in adk_app.async_stream_query(
                 session_id=request.session_id,
                 user_id=request.user_id,
                 message=request.message
             ):
-                # Stream each message as newline-delimited JSON
-                yield f"{json.dumps(message)}\n"
-        except Exception as e:
-            error_message = {"error": str(e)}
-            yield f"{json.dumps(error_message)}\n"
+                # 1. Serialize the event object to a JSON string
+                json_data = json.dumps(event)
 
+                # 2. Format as a Server-Sent Event (SSE)
+                # Format: data: <json_payload>\n\n
+                yield f"data: {json_data}\n\n"
+
+        except Exception as e:
+            # Send error information as a structured SSE message
+            error_message = {"error": str(e), "status": "failed"}
+            json_data = json.dumps(error_message)
+            yield f"data: {json_data}\n\n"
+
+    # Use 'text/event-stream' media type for SSE compatibility
     return StreamingResponse(
         generate_stream(),
-        media_type="application/x-ndjson",
+        media_type="text/event-stream",
         headers={
             "Cache-Control": "no-cache",
-            "X-Accel-Buffering": "no"
+            "X-Accel-Buffering": "no"  # Important for proxy servers like Nginx/Gunicorn
         }
     )
 
