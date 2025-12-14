@@ -1088,11 +1088,15 @@ name = "job-app-tracker"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "fastapi" },
     { name = "google-adk" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "google-adk", specifier = ">=1.21.0" }]
+requires-dist = [
+    { name = "fastapi", specifier = ">=0.123.10" },
+    { name = "google-adk", specifier = ">=1.21.0" },
+]
 
 [[package]]
 name = "jsonschema"
