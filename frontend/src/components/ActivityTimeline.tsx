@@ -21,12 +21,6 @@ export function ActivityTimeline({ events, isLoading }: ActivityTimelineProps) {
         {events.map((event, index) => (
           <TimelineItem key={index} event={event} />
         ))}
-        {isLoading && (
-          <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm">
-            <div className="animate-spin h-3 w-3 border-2 border-gray-300 border-t-blue-600 rounded-full"></div>
-            <span>Processing...</span>
-          </div>
-        )}
       </div>
     </div>
   );
