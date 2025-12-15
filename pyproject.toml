@@ -8,4 +8,5 @@ dependencies = [
     "fastapi>=0.123.10",
     "google-adk>=1.21.0",
     "google-cloud-aiplatform[adk,ag2,agent-engines,langchain,llama-index]>=1.112.0",
+    "sse-starlette>=3.0.4",
 ]

@@ -30,28 +30,12 @@ app = agent_engines.AdkApp(
 async def tests():
     session = await app.async_create_session(user_id="u_123")
     print(session)
-    events = []
 
     async for event in app.async_stream_query(
         user_id="u_123",
         session_id=session.id,
-        message="whats the weather in new york",
+        message="can you help me manage my applications? i recently applied to google, meta, and microsoft today for a swe intern.",
     ):
-        events.append(event)
-
-    # The full event stream shows the agent's thought process
-    print("--- Full Event Stream ---")
-    for event in events:
-        print(event)
-
-    # For quick tests, you can extract just the final text response
-    final_text_responses = [
-        e for e in events
-        if e.get("content", {}).get("parts", [{}])[0].get("text")
-        and not e.get("content", {}).get("parts", [{}])[0].get("function_call")
-    ]
-    if final_text_responses:
-        print("\n--- Final Response ---")
-        print(final_text_responses[0]["content"]["parts"][0]["text"])
+        print("CHUNK", event)
 
 asyncio.run(tests())

@@ -1,7 +1,6 @@
 import json
-
+from sse_starlette.sse import EventSourceResponse
 from fastapi import APIRouter, HTTPException
-from fastapi.responses import StreamingResponse
 import vertexai
 
 from settings import settings
@@ -115,7 +114,6 @@ async def send_message_stream(request: SendMessageRequest):
     """
     async def generate_stream():
         try:
-            # NOTE: Replace with your actual ADK call
             async for event in adk_app.async_stream_query(
                 session_id=request.session_id,
                 user_id=request.user_id,
@@ -126,23 +124,22 @@ async def send_message_stream(request: SendMessageRequest):
 
                 # 2. Format as a Server-Sent Event (SSE)
                 # Format: data: <json_payload>\n\n
-                yield f"data: {json_data}\n\n"
+                yield f"{json_data}\n\n"
+
+            # Send completion event
+            completion_event = json.dumps(
+                {"type": "done", "status": "completed"})
+            yield f"{completion_event}\n\n"
+            print("DONE STREAMING")
 
         except Exception as e:
             # Send error information as a structured SSE message
             error_message = {"error": str(e), "status": "failed"}
             json_data = json.dumps(error_message)
             yield f"data: {json_data}\n\n"
+            print(f"ERROR STREAMING: {str(e)}")
 
-    # Use 'text/event-stream' media type for SSE compatibility
-    return StreamingResponse(
-        generate_stream(),
-        media_type="text/event-stream",
-        headers={
-            "Cache-Control": "no-cache",
-            "X-Accel-Buffering": "no"  # Important for proxy servers like Nginx/Gunicorn
-        }
-    )
+    return EventSourceResponse(generate_stream())
 
 
 @router.get("/sessions", response_model=list[Session])
