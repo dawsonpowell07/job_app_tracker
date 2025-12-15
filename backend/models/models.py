@@ -1,7 +1,6 @@
 # Request/Response Models
 from pydantic import BaseModel
 from typing import Any
-from google.adk.events.event import Event
 
 
 class CreateSessionRequest(BaseModel):
@@ -29,6 +28,6 @@ class Session(BaseModel):
     session_id: str
     user_id: str
     app_name: str
-    events: list[Event]
+    events: list
     state: dict[str, Any]
     timestamp: float
