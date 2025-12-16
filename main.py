@@ -1,6 +1,17 @@
-def main():
-    print("Hello from job-app-tracker!")
+from fastapi import FastAPI
+from ag_ui_adk import ADKAgent, add_adk_fastapi_endpoint
+from job_application_agent.agent import root_agent
 
+adk_agent = ADKAgent(
+    adk_agent=root_agent,
+    app_name="application_agent",
+    user_id="dawson",
+    session_timeout_seconds=3600,
+    use_in_memory_services=True,
+)
 
+app = FastAPI()
+add_adk_fastapi_endpoint(app, adk_agent, path="/")
 if __name__ == "__main__":
-    main()
+    import uvicorn
+    uvicorn.run(app, host="localhost", port=8000)
