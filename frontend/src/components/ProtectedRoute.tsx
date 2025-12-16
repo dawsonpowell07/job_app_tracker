@@ -1,18 +1,18 @@
 "use client";
 
 import { useAuth } from "@/contexts/AuthContext";
-import { LandingPage } from "@/components/LandingPage";
-import { SessionSelector } from "@/components/SessionSelector";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-export default function HomePage() {
+export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
   const router = useRouter();
 
-  const handleSessionSelect = (selectedSessionId: string) => {
-    localStorage.setItem("chat_session_id", selectedSessionId);
-    router.push("/chat");
-  };
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push("/");
+    }
+  }, [user, loading, router]);
 
   if (loading) {
     return (
@@ -26,15 +26,8 @@ export default function HomePage() {
   }
 
   if (!user) {
-    return <LandingPage />;
+    return null;
   }
 
-  // User is authenticated, show session selector
-  return (
-    <SessionSelector
-      username={user.displayName || user.email || "User"}
-      onSessionSelect={handleSessionSelect}
-      onBack={() => {}}
-    />
-  );
+  return <>{children}</>;
 }
