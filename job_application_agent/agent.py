@@ -1,17 +1,17 @@
 
 
 from google.adk.agents import LlmAgent
-
+from google.adk.tools.tool_context import ToolContext
 # Mock tool implementation
 
 
-def get_current_time(city: str) -> dict:
-    """Returns the current time in a specified city."""
-    return {"status": "success", "city": city, "time": "10:30 AM"}
-
-
-def add_application(company: str) -> dict:
+def add_application(company: str, tool_context: ToolContext) -> dict:
     """Add application for a user"""
+    recent_applications = tool_context.state.get(
+        "user:most_recent_applications", [])
+    recent_applications.append(company)
+    tool_context.state["user:most_recent_applications"] = recent_applications[-5:]
+
     return {"status": "success", "company": company}
 # Conceptual Code: Coordinator using LLM Transfer
 
