@@ -33,6 +33,7 @@ coordinator = LlmAgent(
     # allow_transfer=True is often implicit with sub_agents in AutoFlow
     sub_agents=[application_tracking_agent, resume_agent, insights_agent],
 )
-
+# User asks "My payment failed" -> Coordinator's LLM should call transfer_to_agent(agent_name='Billing')
+# User asks "I can't log in" -> Coordinator's LLM should call transfer_to_agent(agent_name='Support')
 
 root_agent = coordinator

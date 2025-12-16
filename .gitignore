@@ -210,4 +210,3 @@ __marimo__/
 *.db
 CLAUDE.md
 deploy.py
-*.json

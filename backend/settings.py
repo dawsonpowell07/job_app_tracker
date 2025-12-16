@@ -10,11 +10,6 @@ class Settings(BaseSettings):
     vertex_resource_id: str
     staging_bucket: str
 
-    # Firebase Configuration
-    firebase_credentials_path: str = "credentials.json"
-    firestore_collection_applications: str = "applications"
-    firestore_collection_users: str = "users"
-
     # CORS Configuration
     cors_origins: list[str] = ["*"]
 
