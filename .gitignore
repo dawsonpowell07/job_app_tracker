@@ -213,3 +213,4 @@ deploy.py
 
 credentials.json
 notes.txt
+node_modules

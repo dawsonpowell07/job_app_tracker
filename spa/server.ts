@@ -1,0 +1,71 @@
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import {
+  CopilotRuntime,
+  copilotRuntimeNodeHttpEndpoint,
+  EmptyAdapter
+} from '@copilotkit/runtime';
+import { HttpAgent } from "@ag-ui/client";
+
+const app = express();
+const PORT = 4000;
+
+// Request logging middleware
+app.use((req, _res, next) => {
+  console.log(`\n[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  console.log('Headers:', JSON.stringify(req.headers, null, 2));
+  if (req.body && Object.keys(req.body).length > 0) {
+    console.log('Body:', JSON.stringify(req.body, null, 2));
+  }
+  next();
+});
+
+// Enable JSON body parsing
+app.use(express.json());
+
+// Enable CORS for your Vite dev server
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true,
+}));
+
+console.log('Initializing CopilotRuntime...');
+console.log('Configuring HttpAgent with URL: http://127.0.0.1:8000');
+const runtime = new CopilotRuntime({
+  agents: {
+    applyflow_agent: new HttpAgent({ url: "http://127.0.0.1:8000/adk" }),
+  }
+});
+
+console.log('Creating EmptyAdapter...');
+const serviceAdapter = new EmptyAdapter();
+
+
+console.log('CopilotRuntime initialized successfully');
+
+app.use('/copilotkit', (req, res, next) => {
+  console.log('CopilotKit endpoint hit - creating handler...');
+  (async () => {
+    const handler = copilotRuntimeNodeHttpEndpoint({
+      endpoint: '/copilotkit',
+      runtime,
+      serviceAdapter,
+    });
+    console.log('Handler created, processing request...');
+    return handler(req, res);
+  })().catch((error) => {
+    console.error('Error in CopilotKit handler:', error);
+    console.error('Error stack:', error.stack);
+    next(error);
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(`\n=================================`);
+  console.log(`CopilotKit runtime server started`);
+  console.log(`Listening at http://localhost:${PORT}/copilotkit`);
+  console.log(`CORS enabled for http://localhost:5173`);
+  console.log(`Backend agent: http://127.0.0.1:8000`);
+  console.log(`=================================\n`);
+});

@@ -1,8 +1,10 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css'; // Importing the main CSS file
+import '@copilotkit/react-ui/styles.css'; // CopilotKit styles
 import App from './App.tsx';
 import { Auth0Provider } from '@auth0/auth0-react';
+import { CopilotKit } from '@copilotkit/react-core';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -16,7 +18,10 @@ createRoot(document.getElementById('root')!).render(
       cacheLocation="localstorage"
       useRefreshTokens={true}
     >
-      <App />
+      <CopilotKit runtimeUrl="http://localhost:4000/copilotkit" agentId="applyflow_agent">
+        <App />
+      </CopilotKit>
     </Auth0Provider>
   </StrictMode>
 );
+

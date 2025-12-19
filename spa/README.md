@@ -1,4 +1,50 @@
-# React + TypeScript + Vite
+# ApplyFlow - Job Application Tracker
+
+A React + TypeScript + Vite SPA with Auth0 authentication and CopilotKit integration.
+
+## Getting Started
+
+### Prerequisites
+- Node.js 18+ and npm
+- Auth0 account with configured application
+- (Optional) [Copilot Cloud API key](https://cloud.copilotkit.ai) for enhanced features
+
+### Installation
+```bash
+npm install
+```
+
+### Environment Variables
+Copy `.env.example` to `.env` and fill in your values:
+```bash
+cp .env.example .env
+```
+
+### Running the Application
+
+**Development (Frontend + CopilotKit Runtime):**
+```bash
+npm run dev:all
+```
+This runs both the Vite dev server (port 5173) and the CopilotKit runtime server (port 4000).
+
+**Run individually:**
+```bash
+npm run dev      # Vite dev server only
+npm run server   # CopilotKit runtime server only
+```
+
+## CopilotKit Setup
+
+This project uses CopilotKit with a Node.js Express runtime. The runtime server is configured in `server.ts` and runs on port 4000.
+
+- **Runtime endpoint:** `http://localhost:4000/copilotkit`
+- **Adapter:** EmptyAdapter (for CoAgents only, agent-lock mode)
+- **Health check:** `http://localhost:4000/health`
+
+**Note:** The EmptyAdapter is designed for use with LangGraph agents in agent-lock mode. Features like `useCopilotChatSuggestions`, `CopilotTextarea`, and `CopilotTask` require an LLM adapter.
+
+## About This Template
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
