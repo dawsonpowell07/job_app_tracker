@@ -3,6 +3,7 @@ import { CopilotSidebar } from '@copilotkit/react-ui';
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 import Profile from './Profile';
+import { Button } from "@/components/ui/button"
 
 function App() {
   const { isAuthenticated, isLoading, error } = useAuth0();
