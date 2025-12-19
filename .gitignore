@@ -210,3 +210,7 @@ __marimo__/
 *.db
 CLAUDE.md
 deploy.py
+
+credentials.json
+notes.txt
+node_modules
