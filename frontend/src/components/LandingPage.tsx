@@ -1,21 +1,59 @@
-import { ArrowRight, Circle } from 'lucide-react';
-import LoginButton from '../LoginButton';
+import { Circle, GraduationCap } from "lucide-react";
+import LoginButton from "../LoginButton";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-[#fefefe] text-[#1a1a1a] overflow-hidden relative">
-      {/* Soft pastel background blobs */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-pink-200/30 via-purple-200/20 to-transparent rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-blue-200/30 via-cyan-200/20 to-transparent rounded-full blur-3xl" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-br from-yellow-200/20 via-orange-200/15 to-transparent rounded-full blur-3xl" />
+    <div className="min-h-screen bg-background text-foreground overflow-hidden relative">
+      {/* Blue academic background blobs */}
+      <div className="absolute top-0 right-0 w-[700px] h-[700px] animate-blob-morph opacity-70">
+        <div className="w-full h-full bg-gradient-to-br from-[#8da9c4]/40 via-[#134074]/30 to-transparent rounded-full blur-3xl animate-gentle-pulse" />
+      </div>
+      <div
+        className="absolute bottom-0 left-0 w-[600px] h-[600px] animate-blob-morph opacity-60"
+        style={{ animationDelay: "2s" }}
+      >
+        <div
+          className="w-full h-full bg-gradient-to-tr from-[#134074]/40 via-[#5a8ab8]/30 to-transparent rounded-full blur-3xl animate-gentle-pulse"
+          style={{ animationDelay: "1s" }}
+        />
+      </div>
+      <div
+        className="absolute top-1/3 right-1/4 w-[500px] h-[500px] animate-blob-morph opacity-50"
+        style={{ animationDelay: "4s" }}
+      >
+        <div
+          className="w-full h-full bg-linear-to-br from-[#8da9c4]/35 via-[#134074]/25 to-transparent rounded-full blur-3xl animate-gentle-pulse"
+          style={{ animationDelay: "2s" }}
+        />
+      </div>
+      <div
+        className="absolute bottom-1/4 right-1/3 w-[450px] h-[450px] animate-blob-morph opacity-55"
+        style={{ animationDelay: "6s" }}
+      >
+        <div
+          className="w-full h-full bg-linear-to-tr from-[#6b9ac8]/35 via-[#8da9c4]/25 to-transparent rounded-full blur-3xl animate-gentle-pulse"
+          style={{ animationDelay: "3s" }}
+        />
+      </div>
+      <div
+        className="absolute top-2/3 left-1/3 w-[400px] h-[400px] animate-blob-morph opacity-60"
+        style={{ animationDelay: "3s" }}
+      >
+        <div
+          className="w-full h-full bg-linear-to-bl from-[#134074]/35 via-[#8da9c4]/25 to-transparent rounded-full blur-3xl animate-gentle-pulse"
+          style={{ animationDelay: "4s" }}
+        />
+      </div>
 
       <div className="relative z-10">
         {/* Navigation */}
         <nav className="container mx-auto px-8 py-12">
           <div className="max-w-7xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-3">
-              <div className="w-2 h-2 bg-gradient-to-br from-pink-400 to-purple-400 rounded-full" />
-              <span className="text-lg font-light tracking-wide">ApplyFlow</span>
+              <GraduationCap className="w-6 h-6 text-[#134074] animate-gentle-pulse" />
+              <span className="text-2xl tracking-wide font-handwritten">
+                ApplyFlow
+              </span>
             </div>
           </div>
         </nav>
@@ -25,18 +63,21 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto">
             <div className="max-w-4xl animate-fade-in-up">
               <div className="mb-16 space-y-6">
-                <h1 className="text-[5rem] md:text-[7rem] lg:text-[9rem] font-light leading-[0.9] tracking-tight">
+                <h1 className="text-[5rem] md:text-[7rem] lg:text-[9rem] leading-[1.2]">
                   Job search,
-                  <span className="block italic font-extralight bg-gradient-to-r from-pink-300 via-purple-300 to-blue-300 bg-clip-text text-transparent">
+                  <span
+                    className="block italic bg-linear-to-r from-[#134074] via-[#5a8ab8] to-[#8da9c4] bg-clip-text text-transparent animate-shimmer"
+                    style={{ backgroundSize: "200% auto" }}
+                  >
                     reimagined
                   </span>
                 </h1>
               </div>
 
               <div className="max-w-xl ml-auto space-y-12 animate-fade-in-up [animation-delay:200ms]">
-                <p className="text-xl md:text-2xl font-light text-gray-600 leading-relaxed">
-                  An intelligent workspace for managing applications, versioning resumes,
-                  and discovering insights through conversation.
+                <p className="text-xl md:text-2xl font-light text-muted-foreground leading-relaxed">
+                  An intelligent workspace for managing applications, versioning
+                  resumes, and discovering insights through conversation.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 items-start">
@@ -58,9 +99,14 @@ export default function LandingPage() {
                   style={{ animationDelay: `${index * 150}ms` }}
                 >
                   <div className="flex items-start gap-4">
-                    <Circle className={`w-3 h-3 mt-2 ${feature.color}`} fill="currentColor" />
+                    <Circle
+                      className={`w-3 h-3 mt-2 ${feature.color}`}
+                      fill="currentColor"
+                    />
                     <div className="flex-1 space-y-4">
-                      <h3 className="text-3xl md:text-4xl font-light tracking-tight">{feature.title}</h3>
+                      <h3 className="text-3xl md:text-4xl font-light tracking-tight">
+                        {feature.title}
+                      </h3>
                       <p className="text-lg md:text-xl font-light text-gray-500 leading-relaxed">
                         {feature.description}
                       </p>
@@ -93,12 +139,14 @@ export default function LandingPage() {
         {/* Footer */}
         <footer className="container mx-auto px-8 py-16">
           <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 border-t border-gray-200 pt-12">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 border-t border-border/60 pt-12">
               <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-gradient-to-br from-pink-400 to-purple-400 rounded-full" />
-                <span className="text-sm font-light tracking-wide text-gray-500">ApplyFlow</span>
+                <GraduationCap className="w-5 h-5 text-[#134074] animate-gentle-pulse" />
+                <span className="text-xl tracking-wide font-handwritten text-muted-foreground">
+                  ApplyFlow
+                </span>
               </div>
-              <p className="text-sm font-light text-gray-400">
+              <p className="text-sm font-light text-muted-foreground">
                 © 2025 — Designed with care
               </p>
             </div>
@@ -111,23 +159,27 @@ export default function LandingPage() {
 
 const features = [
   {
-    title: 'Track everything',
-    description: 'A living record of every application. Status, timelines, and notes in a space that grows with your search.',
-    color: 'text-pink-300',
+    title: "Track everything",
+    description:
+      "A living record of every application. Status, timelines, and notes in a space that grows with your search.",
+    color: "text-[#134074]",
   },
   {
-    title: 'Version your story',
-    description: 'Craft tailored resumes for every opportunity. Each version is saved, searchable, and ready when you need it.',
-    color: 'text-purple-300',
+    title: "Version your story",
+    description:
+      "Craft tailored resumes for every opportunity. Each version is saved, searchable, and ready when you need it.",
+    color: "text-[#5a8ab8]",
   },
   {
-    title: 'Discover patterns',
-    description: 'AI agents analyze your applications to surface insights you might have missed. Learn what resonates.',
-    color: 'text-blue-300',
+    title: "Discover patterns",
+    description:
+      "AI agents analyze your applications to surface insights you might have missed. Learn what resonates.",
+    color: "text-[#13315c]",
   },
   {
-    title: 'Converse naturally',
-    description: 'Ask questions, request feedback, explore your data. Your AI assistant understands context and remembers.',
-    color: 'text-cyan-300',
+    title: "Converse naturally",
+    description:
+      "Ask questions, request feedback, explore your data. Your AI assistant understands context and remembers.",
+    color: "text-[#8da9c4]",
   },
 ];

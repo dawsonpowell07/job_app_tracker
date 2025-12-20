@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   LayoutGrid,
   FileText,
   MessageSquare,
-  Circle,
+  GraduationCap,
   Home,
-} from "lucide-react"
-import { useAuth0 } from "@auth0/auth0-react"
-import { Link } from "react-router-dom"
+} from "lucide-react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from "react-router-dom";
 
-import { NavMain } from "@/components/nav-main"
-import { NavUser } from "@/components/nav-user"
+import { NavMain } from "@/components/nav-main";
+import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -21,7 +21,8 @@ import {
   SidebarRail,
   SidebarMenu,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
+import { ModeToggle } from "@/components/mode-toggle";
 
 const data = {
   navMain: [
@@ -52,6 +53,10 @@ const data = {
           title: "Bucket View",
           url: "/applications/bucket",
         },
+        {
+          title: "Kanban View",
+          url: "/applications/kanban",
+        },
       ],
     },
     {
@@ -65,19 +70,24 @@ const data = {
       icon: MessageSquare,
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { user } = useAuth0()
+  const { user } = useAuth0();
 
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <Link to="/" className="flex items-center gap-2 px-2 py-1.5 group-data-[collapsible=icon]:px-2 hover:opacity-70 transition-opacity">
-              <Circle className="w-2 h-2 text-pink-400 shrink-0" fill="currentColor" />
-              <span className="font-light text-base group-data-[collapsible=icon]:hidden">ApplyFlow</span>
+            <Link
+              to="/"
+              className="flex items-center gap-2 px-2 py-1.5 group-data-[collapsible=icon]:px-2 hover:opacity-70 transition-opacity"
+            >
+              <GraduationCap className="w-5 h-5 text-[#134074] shrink-0" />
+              <span className="font-handwritten text-base group-data-[collapsible=icon]:hidden">
+                ApplyFlow
+              </span>
             </Link>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -85,18 +95,25 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={user ? {
-          name: user.name || user.email || "User",
-          email: user.email || "",
-          avatar: user.picture || "",
-        } : {
-          name: "User",
-          email: "",
-          avatar: "",
-        }} />
+      <SidebarFooter className="justify-center">
+        <ModeToggle />
+        <NavUser
+          user={
+            user
+              ? {
+                  name: user.name || user.email || "User",
+                  email: user.email || "",
+                  avatar: user.picture || "",
+                }
+              : {
+                  name: "User",
+                  email: "",
+                  avatar: "",
+                }
+          }
+        />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

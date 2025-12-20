@@ -5,17 +5,21 @@ A React + TypeScript + Vite SPA with Auth0 authentication and CopilotKit integra
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js 18+ and npm
 - Auth0 account with configured application
 - (Optional) [Copilot Cloud API key](https://cloud.copilotkit.ai) for enhanced features
 
 ### Installation
+
 ```bash
 npm install
 ```
 
 ### Environment Variables
+
 Copy `.env.example` to `.env` and fill in your values:
+
 ```bash
 cp .env.example .env
 ```
@@ -23,12 +27,15 @@ cp .env.example .env
 ### Running the Application
 
 **Development (Frontend + CopilotKit Runtime):**
+
 ```bash
 npm run dev:all
 ```
+
 This runs both the Vite dev server (port 5173) and the CopilotKit runtime server (port 4000).
 
 **Run individually:**
+
 ```bash
 npm run dev      # Vite dev server only
 npm run server   # CopilotKit runtime server only
@@ -63,9 +70,9 @@ If you are developing a production application, we recommend updating the config
 
 ```js
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
       // Other configs...
 
@@ -80,40 +87,40 @@ export default defineConfig([
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },
       // other options...
     },
   },
-])
+]);
 ```
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from "eslint-plugin-react-x";
+import reactDom from "eslint-plugin-react-dom";
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
       // Other configs...
       // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
+      reactX.configs["recommended-typescript"],
       // Enable lint rules for React DOM
       reactDom.configs.recommended,
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },
       // other options...
     },
   },
-])
+]);
 ```

@@ -240,3 +240,6 @@ dist-ssr
 *.sln
 *.sw?
 node_modules
+
+.adk
+.CLAUDE
