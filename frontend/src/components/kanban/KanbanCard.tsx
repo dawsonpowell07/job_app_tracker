@@ -73,10 +73,12 @@ export function KanbanCard({ application }: KanbanCardProps) {
           <AlertDialogTitle>Application Details</AlertDialogTitle>
           <AlertDialogDescription className="space-y-4">
             <div>
-              <span className="font-medium">Company:</span> {application.company}
+              <span className="font-medium">Company:</span>{" "}
+              {application.company}
             </div>
             <div>
-              <span className="font-medium">Job Title:</span> {application.job_title}
+              <span className="font-medium">Job Title:</span>{" "}
+              {application.job_title}
             </div>
             {application.pay && (
               <div>
@@ -85,12 +87,14 @@ export function KanbanCard({ application }: KanbanCardProps) {
             )}
             {application.location && (
               <div>
-                <span className="font-medium">Location:</span> {application.location}
+                <span className="font-medium">Location:</span>{" "}
+                {application.location}
               </div>
             )}
             {application.resume_used && (
               <div>
-                <span className="font-medium">Resume Used:</span> {application.resume_used}
+                <span className="font-medium">Resume Used:</span>{" "}
+                {application.resume_used}
               </div>
             )}
             {application.job_url && (

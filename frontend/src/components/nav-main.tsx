@@ -1,11 +1,11 @@
-import { ChevronRight, type LucideIcon } from "lucide-react"
-import { Link } from "react-router-dom"
+import { ChevronRight, type LucideIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from "@/components/ui/collapsible";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -15,25 +15,27 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 export function NavMain({
   items,
 }: {
   items: {
-    title: string
-    url: string
-    icon?: LucideIcon
-    isActive?: boolean
+    title: string;
+    url: string;
+    icon?: LucideIcon;
+    isActive?: boolean;
     items?: {
-      title: string
-      url: string
-    }[]
-  }[]
+      title: string;
+      url: string;
+    }[];
+  }[];
 }) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel className="font-light text-xs">Navigation</SidebarGroupLabel>
+      <SidebarGroupLabel className="font-light text-xs">
+        Navigation
+      </SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => {
           // If item has sub-items, render as collapsible
@@ -47,7 +49,10 @@ export function NavMain({
               >
                 <SidebarMenuItem>
                   <CollapsibleTrigger asChild>
-                    <SidebarMenuButton tooltip={item.title} className="font-light">
+                    <SidebarMenuButton
+                      tooltip={item.title}
+                      className="font-light"
+                    >
                       {item.icon && <item.icon />}
                       <span>{item.title}</span>
                       <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -68,22 +73,26 @@ export function NavMain({
                   </CollapsibleContent>
                 </SidebarMenuItem>
               </Collapsible>
-            )
+            );
           }
 
           // Otherwise, render as simple link
           return (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild tooltip={item.title} className="font-light">
+              <SidebarMenuButton
+                asChild
+                tooltip={item.title}
+                className="font-light"
+              >
                 <Link to={item.url}>
                   {item.icon && <item.icon />}
                   <span>{item.title}</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
-          )
+          );
         })}
       </SidebarMenu>
     </SidebarGroup>
-  )
+  );
 }

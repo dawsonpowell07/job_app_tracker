@@ -1,14 +1,7 @@
-import {
-  ChevronsUpDown,
-  LogOut,
-} from "lucide-react"
-import { useAuth0 } from "@auth0/auth0-react"
+import { ChevronsUpDown, LogOut } from "lucide-react";
+import { useAuth0 } from "@auth0/auth0-react";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,35 +9,40 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 export function NavUser({
   user,
 }: {
   user: {
-    name: string
-    email: string
-    avatar: string
-  }
+    name: string;
+    email: string;
+    avatar: string;
+  };
 }) {
-  const { isMobile } = useSidebar()
-  const { logout } = useAuth0()
+  const { isMobile } = useSidebar();
+  const { logout } = useAuth0();
 
   const getInitials = (name: string, email: string) => {
     if (name) {
-      return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
+      return name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2);
     }
     if (email) {
-      return email[0].toUpperCase()
+      return email[0].toUpperCase();
     }
-    return 'U'
-  }
+    return "U";
+  };
 
   return (
     <SidebarMenu>
@@ -63,7 +61,9 @@ export function NavUser({
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-light">{user.name}</span>
-                <span className="truncate text-xs text-muted-foreground">{user.email}</span>
+                <span className="truncate text-xs text-muted-foreground">
+                  {user.email}
+                </span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -84,13 +84,17 @@ export function NavUser({
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-light">{user.name}</span>
-                  <span className="truncate text-xs text-muted-foreground">{user.email}</span>
+                  <span className="truncate text-xs text-muted-foreground">
+                    {user.email}
+                  </span>
                 </div>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+              onClick={() =>
+                logout({ logoutParams: { returnTo: window.location.origin } })
+              }
               className="font-light"
             >
               <LogOut />
@@ -100,5 +104,5 @@ export function NavUser({
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>
-  )
+  );
 }

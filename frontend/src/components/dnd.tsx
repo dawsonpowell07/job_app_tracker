@@ -1,7 +1,6 @@
-
-import { useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { cn } from '../lib/utils';
+import { useCallback } from "react";
+import { useDropzone } from "react-dropzone";
+import { cn } from "../lib/utils";
 
 interface DropzoneProps {
   onDrop: (acceptedFiles: File[]) => void;
@@ -19,11 +18,10 @@ export function Dropzone({ onDrop, className }: DropzoneProps) {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: onDropCallback,
     accept: {
-      'application/pdf': ['.pdf'],
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': [
-        '.docx',
-      ],
-      'application/msword': ['.doc'],
+      "application/pdf": [".pdf"],
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        [".docx"],
+      "application/msword": [".doc"],
     },
   });
 
@@ -31,8 +29,8 @@ export function Dropzone({ onDrop, className }: DropzoneProps) {
     <div
       {...getRootProps()}
       className={cn(
-        'flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-12 text-center cursor-pointer hover:border-gray-400 transition-colors',
-        { 'border-[#134074] bg-[#8da9c4]/20': isDragActive },
+        "flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-12 text-center cursor-pointer hover:border-gray-400 transition-colors",
+        { "border-[#134074] bg-[#8da9c4]/20": isDragActive },
         className,
       )}
     >

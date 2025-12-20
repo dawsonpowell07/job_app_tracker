@@ -43,7 +43,7 @@ export const COLUMN_CONFIG: Record<
 };
 
 export function groupApplicationsByStatus(
-  applications: Application[]
+  applications: Application[],
 ): KanbanColumn[] {
   const groups = Object.entries(COLUMN_CONFIG)
     .sort(([, a], [, b]) => a.order - b.order)

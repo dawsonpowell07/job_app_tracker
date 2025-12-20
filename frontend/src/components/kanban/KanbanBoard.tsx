@@ -20,7 +20,10 @@ interface KanbanBoardProps {
   onStatusUpdate: (applicationId: string, newStatus: ApplicationStatus) => void;
 }
 
-export function KanbanBoard({ applications, onStatusUpdate }: KanbanBoardProps) {
+export function KanbanBoard({
+  applications,
+  onStatusUpdate,
+}: KanbanBoardProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const columns = groupApplicationsByStatus(applications);
 
@@ -32,7 +35,7 @@ export function KanbanBoard({ applications, onStatusUpdate }: KanbanBoardProps) 
     }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
 
   const handleDragStart = (event: DragStartEvent) => {
@@ -48,7 +51,13 @@ export function KanbanBoard({ applications, onStatusUpdate }: KanbanBoardProps) 
     }
 
     // Check if dropped on a column (not another card)
-    const validStatuses: ApplicationStatus[] = ["applied", "interviewing", "offer", "rejected", "ghosted"];
+    const validStatuses: ApplicationStatus[] = [
+      "applied",
+      "interviewing",
+      "offer",
+      "rejected",
+      "ghosted",
+    ];
     if (validStatuses.includes(over.id as ApplicationStatus)) {
       const newStatus = over.id as ApplicationStatus;
       onStatusUpdate(active.id as string, newStatus);

@@ -1,5 +1,8 @@
 import { useDroppable } from "@dnd-kit/core";
-import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import type { KanbanColumn as KanbanColumnType } from "./types";
 import { KanbanCard } from "./KanbanCard";
 import { EmptyColumnPlaceholder } from "./EmptyColumnPlaceholder";
@@ -19,7 +22,7 @@ export function KanbanColumn({ column }: KanbanColumnProps) {
       className={cn(
         "flex flex-col gap-4 min-h-[600px] w-full rounded-2xl border border-border/40 backdrop-blur-sm p-4 watercolor-shadow-sm transition-all",
         column.bgColor,
-        isOver && "ring-2 ring-primary/50 bg-primary/5"
+        isOver && "ring-2 ring-primary/50 bg-primary/5",
       )}
     >
       {/* Column Header */}

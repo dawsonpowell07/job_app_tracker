@@ -1,4 +1,3 @@
-
 import type { Application, Resume } from "./types";
 
 export const mockApplications: Application[] = [

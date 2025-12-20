@@ -7,7 +7,7 @@ export default function KanbanView() {
   const [applications, setApplications] = useState(mockApplications);
   const { updateApplicationStatus } = useApplicationMutations(
     applications,
-    setApplications
+    setApplications,
   );
 
   return (

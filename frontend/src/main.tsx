@@ -30,5 +30,5 @@ createRoot(document.getElementById("root")!).render(
         </CopilotKit>
       </Auth0Provider>
     </ThemeProvider>
-  </StrictMode>
+  </StrictMode>,
 );

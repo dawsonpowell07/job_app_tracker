@@ -3,14 +3,14 @@ import type { Application, ApplicationStatus } from "@/types";
 
 export function useApplicationMutations(
   applications: Application[],
-  setApplications: (apps: Application[]) => void
+  setApplications: (apps: Application[]) => void,
 ) {
   const [isUpdating, setIsUpdating] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
   const updateApplicationStatus = async (
     applicationId: string,
-    newStatus: ApplicationStatus
+    newStatus: ApplicationStatus,
   ) => {
     setIsUpdating(true);
     setError(null);
@@ -23,8 +23,8 @@ export function useApplicationMutations(
       applications.map((app) =>
         app.id === applicationId
           ? { ...app, status: newStatus, updated_at: new Date() }
-          : app
-      )
+          : app,
+      ),
     );
 
     try {
@@ -44,7 +44,9 @@ export function useApplicationMutations(
       // Simulate API delay for now
       await new Promise((resolve) => setTimeout(resolve, 300));
 
-      console.log(`Updated application ${applicationId} to status: ${newStatus}`);
+      console.log(
+        `Updated application ${applicationId} to status: ${newStatus}`,
+      );
     } catch (err) {
       // Rollback on error
       console.error("Failed to update application status:", err);
