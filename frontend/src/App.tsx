@@ -3,7 +3,6 @@ import { CopilotSidebar } from "@copilotkit/react-ui";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import Dashboard from "./pages/Dashboard";
-import BentoBoxView from "./pages/BentoBoxView";
 import TimelineView from "./pages/TimelineView";
 import ExcelView from "./pages/ExcelView";
 import BucketView from "./pages/BucketView";
@@ -23,11 +22,12 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import CardsView from "./pages/CardsView";
 
 function getBreadcrumb(pathname: string): string {
   const routes: Record<string, string> = {
     "/": "Dashboard",
-    "/applications/bento-box": "Bento Box View",
+    "/applications/cards": "Card View",
     "/applications/timeline": "Timeline View",
     "/applications/excel": "Excel View",
     "/applications/bucket": "Bucket View",
@@ -66,7 +66,7 @@ function AppContent() {
         </header>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/applications/bento-box" element={<BentoBoxView />} />
+          <Route path="/applications/cards" element={<CardsView />} />
           <Route path="/applications/timeline" element={<TimelineView />} />
           <Route path="/applications/excel" element={<ExcelView />} />
           <Route path="/applications/bucket" element={<BucketView />} />
