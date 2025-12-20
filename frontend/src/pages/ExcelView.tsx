@@ -80,8 +80,14 @@ function ExcelView() {
   // Since we're using static mock data, no need for async loading
   // Just use the data directly — it's immediately available
   return (
-    <div className="container mx-auto py-10">
-      <h1 className="text-3xl font-bold mb-8">Job Applications</h1>
+    <div className="flex flex-1 flex-col gap-6 p-8 relative">
+      <div className="absolute inset-0 -z-10 gradient-mesh-2 opacity-20" />
+      <div className="space-y-2">
+        <h1 className="text-4xl tracking-tight">Job Applications</h1>
+        <p className="text-lg font-light text-muted-foreground">
+          Manage and track all your applications
+        </p>
+      </div>
       <DataTable columns={columns} data={mockData} />
     </div>
   );

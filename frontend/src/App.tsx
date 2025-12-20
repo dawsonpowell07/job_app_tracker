@@ -44,7 +44,7 @@ function AppContent() {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 border-b border-black/50">
+        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 border-b border-border/60 bg-card/40 backdrop-blur-sm">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
             <Separator
@@ -79,10 +79,10 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#fefefe] flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-purple-200/30 border-t-purple-300 rounded-full animate-spin mx-auto mb-4"></div>
-          <div className="text-gray-400 font-light">Loading...</div>
+          <div className="w-14 h-14 border-4 border-purple-200/40 border-t-purple-400 rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="text-muted-foreground font-light">Loading...</div>
         </div>
       </div>
     );
@@ -90,11 +90,11 @@ function App() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-[#fefefe] flex items-center justify-center p-6">
-        <div className="max-w-md text-center space-y-4">
-          <div className="text-5xl mb-4">⚠️</div>
-          <h1 className="text-3xl font-light text-gray-900">Something went wrong</h1>
-          <p className="text-gray-500 font-light">{error.message}</p>
+      <div className="min-h-screen bg-background flex items-center justify-center p-6">
+        <div className="max-w-md text-center space-y-4 rounded-3xl border border-border/60 bg-card/90 p-12 watercolor-shadow">
+          <div className="text-6xl mb-4">⚠️</div>
+          <h1 className="text-4xl text-foreground">Something went wrong</h1>
+          <p className="text-muted-foreground font-light text-lg">{error.message}</p>
         </div>
       </div>
     );
