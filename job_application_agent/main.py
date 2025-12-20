@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from ag_ui_adk import ADKAgent, add_adk_fastapi_endpoint
-from job_application_agent.agent import root_agent
+from agent.agent import root_agent
 from ag_ui.core import RunAgentInput
 from fastapi.middleware.cors import CORSMiddleware
 
