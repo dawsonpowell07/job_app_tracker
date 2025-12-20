@@ -47,90 +47,91 @@
 :root {
   --radius: 1rem;
 
-  /* Artsy Pastel Base Colors */
-  --background: oklch(0.98 0.015 60); /* Warm cream background */
-  --foreground: oklch(0.25 0.02 280); /* Soft deep purple-gray */
+  /* Blue Academic Theme Base Colors */
+  --background: #eef4ed; /* Mint Cream background */
+  --foreground: #134074; /* Yale Blue text */
 
   /* Card & Surface Colors */
-  --card: oklch(0.99 0.01 40); /* Peachy white */
-  --card-foreground: oklch(0.25 0.02 280);
-  --popover: oklch(0.99 0.015 320); /* Soft pink-white */
-  --popover-foreground: oklch(0.25 0.02 280);
+  --card: #f8faf8; /* Slightly lighter mint cream */
+  --card-foreground: #134074;
+  --popover: #f5f8f5; /* Light mint cream */
+  --popover-foreground: #134074;
 
-  /* Primary - Dusty Rose */
-  --primary: oklch(0.72 0.12 350);
-  --primary-foreground: oklch(0.99 0.01 0);
+  /* Primary - Yale Blue */
+  --primary: #134074;
+  --primary-foreground: #eef4ed;
 
-  /* Secondary - Soft Lavender */
-  --secondary: oklch(0.88 0.08 290);
-  --secondary-foreground: oklch(0.25 0.02 280);
+  /* Secondary - Powder Blue */
+  --secondary: #8da9c4;
+  --secondary-foreground: #134074;
 
-  /* Muted - Peachy Beige */
-  --muted: oklch(0.93 0.03 40);
-  --muted-foreground: oklch(0.52 0.04 280);
+  /* Muted - Light Powder Blue */
+  --muted: #e0e8f0;
+  --muted-foreground: #13315c;
 
-  /* Accent - Mint Cream */
-  --accent: oklch(0.90 0.06 160);
-  --accent-foreground: oklch(0.25 0.02 280);
+  /* Accent - Yale Blue */
+  --accent: #134074;
+  --accent-foreground: #eef4ed;
 
-  /* Destructive - Coral Pink */
-  --destructive: oklch(0.68 0.18 15);
+  /* Destructive - Red (keeping for errors) */
+  --destructive: oklch(0.6 0.15 25);
 
   /* Borders & Inputs */
-  --border: oklch(0.88 0.04 320);
-  --input: oklch(0.90 0.03 290);
-  --ring: oklch(0.75 0.10 340);
+  --border: #c4d0dc;
+  --input: #d0dce8;
+  --ring: #134074;
 
-  /* Chart Colors - Watercolor Palette */
-  --chart-1: oklch(0.78 0.12 350); /* Dusty Rose */
-  --chart-2: oklch(0.82 0.10 280); /* Soft Lavender */
-  --chart-3: oklch(0.80 0.11 160); /* Mint Green */
-  --chart-4: oklch(0.85 0.08 50); /* Butter Yellow */
-  --chart-5: oklch(0.75 0.13 200); /* Periwinkle */
+  /* Chart Colors - Blue Academic Palette */
+  --chart-1: #134074; /* Yale Blue */
+  --chart-2: #8da9c4; /* Powder Blue */
+  --chart-3: #13315c; /* Oxford Navy */
+  --chart-4: #5a8ab8; /* Medium Blue */
+  --chart-5: #6b9ac8; /* Light Powder Blue */
 
-  /* Sidebar - Soft Gradient */
-  --sidebar: oklch(0.97 0.02 340);
-  --sidebar-foreground: oklch(0.25 0.02 280);
-  --sidebar-primary: oklch(0.70 0.13 340);
-  --sidebar-primary-foreground: oklch(0.99 0.01 0);
-  --sidebar-accent: oklch(0.92 0.05 320);
-  --sidebar-accent-foreground: oklch(0.25 0.02 280);
-  --sidebar-border: oklch(0.90 0.04 330);
-  --sidebar-ring: oklch(0.75 0.10 340);
+  /* Sidebar - Mint Cream */
+  --sidebar: #f0f5f2;
+  --sidebar-foreground: #134074;
+  --sidebar-primary: #134074;
+  --sidebar-primary-foreground: #eef4ed;
+  --sidebar-accent: #d8e4e8;
+  --sidebar-accent-foreground: #134074;
+  --sidebar-border: #c4d0dc;
+  --sidebar-ring: #134074;
 }
 
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  /* Dark Blue Academic Theme */
+  --background: #0b2545; /* Prussian Blue background */
+  --foreground: #eef4ed; /* Mint Cream text */
+  --card: #13315c; /* Oxford Navy */
+  --card-foreground: #eef4ed;
+  --popover: #13315c;
+  --popover-foreground: #eef4ed;
+  --primary: #8da9c4; /* Powder Blue */
+  --primary-foreground: #0b2545;
+  --secondary: #5a7a9c; /* Medium Blue */
+  --secondary-foreground: #eef4ed;
+  --muted: #1a3d5c;
+  --muted-foreground: #8da9c4;
+  --accent: #8da9c4;
+  --accent-foreground: #0b2545;
+  --destructive: oklch(0.65 0.15 25);
+  --border: #13315c / 0.5;
+  --input: #13315c / 0.6;
+  --ring: #8da9c4;
+  --chart-1: #8da9c4; /* Powder Blue */
+  --chart-2: #5a7a9c; /* Medium Blue */
+  --chart-3: #134074; /* Yale Blue */
+  --chart-4: #6b8ab8; /* Light Blue */
+  --chart-5: #4a6a8c; /* Dark Blue */
+  --sidebar: #13315c;
+  --sidebar-foreground: #eef4ed;
+  --sidebar-primary: #8da9c4;
+  --sidebar-primary-foreground: #0b2545;
+  --sidebar-accent: #5a7a9c;
+  --sidebar-accent-foreground: #eef4ed;
+  --sidebar-border: #13315c / 0.5;
+  --sidebar-ring: #8da9c4;
 }
 
 @layer base {
@@ -139,13 +140,14 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI",
+      sans-serif;
     position: relative;
   }
 
   /* Subtle paper texture overlay */
   body::before {
-    content: '';
+    content: "";
     position: fixed;
     top: 0;
     left: 0;
@@ -153,19 +155,35 @@
     height: 100%;
     opacity: 0.03;
     z-index: -1;
-    background-image:
-      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.03) 2px, rgba(0,0,0,.03) 4px),
-      repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.03) 2px, rgba(0,0,0,.03) 4px);
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.03) 2px,
+        rgba(0, 0, 0, 0.03) 4px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.03) 2px,
+        rgba(0, 0, 0, 0.03) 4px
+      );
     pointer-events: none;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', Georgia, serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Playfair Display", Georgia, serif;
     font-weight: 500;
   }
 
   .font-handwritten {
-    font-family: 'Caveat', cursive;
+    font-family: "Caveat", cursive;
   }
 }
 
@@ -191,7 +209,8 @@
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -231,7 +250,8 @@
 
 /* Artsy Watercolor Effects */
 @keyframes gentle-pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.6;
     transform: scale(1);
   }
@@ -242,7 +262,8 @@
 }
 
 @keyframes float-drift {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate(0, 0) rotate(0deg);
   }
   33% {
@@ -263,7 +284,8 @@
 }
 
 @keyframes blob-morph {
-  0%, 100% {
+  0%,
+  100% {
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   }
   50% {
@@ -300,39 +322,39 @@
   border-bottom-right-radius: 70% 30%;
 }
 
-/* Watercolor Shadow Effects */
+/* Blue Academic Shadow Effects */
 .watercolor-shadow-sm {
-  box-shadow:
-    0 1px 2px oklch(0.7 0.08 340 / 0.1),
-    0 2px 4px oklch(0.75 0.1 290 / 0.08),
-    0 4px 8px oklch(0.8 0.06 160 / 0.06);
+  box-shadow: 0 1px 2px rgb(19 64 116 / 0.1), 0 2px 4px rgb(19 64 116 / 0.08),
+    0 4px 8px rgb(19 64 116 / 0.06);
 }
 
 .watercolor-shadow {
-  box-shadow:
-    0 2px 4px oklch(0.7 0.08 340 / 0.12),
-    0 4px 8px oklch(0.75 0.1 290 / 0.1),
-    0 8px 16px oklch(0.8 0.06 160 / 0.08);
+  box-shadow: 0 2px 4px rgb(19 64 116 / 0.12), 0 4px 8px rgb(19 64 116 / 0.1),
+    0 8px 16px rgb(19 64 116 / 0.08);
 }
 
 .watercolor-shadow-lg {
-  box-shadow:
-    0 4px 8px oklch(0.7 0.08 340 / 0.15),
-    0 8px 16px oklch(0.75 0.1 290 / 0.12),
-    0 16px 32px oklch(0.8 0.06 160 / 0.1);
+  box-shadow: 0 4px 8px rgb(19 64 116 / 0.15), 0 8px 16px rgb(19 64 116 / 0.12),
+    0 16px 32px rgb(19 64 116 / 0.1);
 }
 
-/* Gradient Mesh Backgrounds */
+/* Blue Academic Gradient Mesh Backgrounds */
 .gradient-mesh-1 {
-  background:
-    radial-gradient(at 20% 30%, oklch(0.90 0.08 350 / 0.4) 0px, transparent 50%),
-    radial-gradient(at 80% 70%, oklch(0.88 0.08 290 / 0.35) 0px, transparent 50%),
-    radial-gradient(at 50% 50%, oklch(0.90 0.06 160 / 0.3) 0px, transparent 50%);
+  background: radial-gradient(
+      at 20% 30%,
+      rgb(141 169 196 / 0.4) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 80% 70%, rgb(19 64 116 / 0.35) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgb(141 169 196 / 0.3) 0px, transparent 50%);
 }
 
 .gradient-mesh-2 {
-  background:
-    radial-gradient(at 10% 20%, oklch(0.85 0.08 50 / 0.35) 0px, transparent 50%),
-    radial-gradient(at 90% 80%, oklch(0.75 0.13 200 / 0.4) 0px, transparent 50%),
-    radial-gradient(at 50% 90%, oklch(0.78 0.12 350 / 0.3) 0px, transparent 50%);
+  background: radial-gradient(
+      at 10% 20%,
+      rgb(19 64 116 / 0.35) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 90% 80%, rgb(19 49 92 / 0.4) 0px, transparent 50%),
+    radial-gradient(at 50% 90%, rgb(141 169 196 / 0.3) 0px, transparent 50%);
 }

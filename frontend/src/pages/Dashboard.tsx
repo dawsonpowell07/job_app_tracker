@@ -23,22 +23,30 @@ export default function Dashboard() {
             style={{ animationDelay: `${index * 100}ms` }}
           >
             {/* Gradient background on hover */}
-            <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${stat.gradient}`} />
+            <div
+              className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${stat.gradient}`}
+            />
 
             <div className="relative space-y-3">
               <div className="flex items-center justify-between">
-                <div className={`w-12 h-12 rounded-2xl ${stat.iconBg} flex items-center justify-center watercolor-shadow-sm group-hover:scale-110 transition-transform duration-300`}>
-                  <stat.icon className={`w-6 h-6 ${stat.iconColor}`} />
+                <div
+                  className={`w-12 h-12 rounded-2xl ${stat.iconBg} flex items-center justify-center watercolor-shadow-sm group-hover:scale-110 transition-transform duration-300 border border-primary/10 dark:border-secondary/20`}
+                >
+                  <stat.icon
+                    className={`w-6 h-6 ${stat.iconColor} stroke-[1.5]`}
+                  />
                 </div>
                 {stat.trend && (
-                  <div className="flex items-center gap-1 text-xs font-medium text-emerald-500 bg-emerald-50/80 px-2 py-1 rounded-full">
+                  <div className="flex items-center gap-1 text-xs font-medium text-primary dark:text-secondary bg-secondary/20 dark:bg-secondary/30 px-2 py-1 rounded-full">
                     <TrendingUp className="w-3 h-3" />
                     {stat.trend}
                   </div>
                 )}
               </div>
               <div className="space-y-1">
-                <p className="text-sm font-light text-muted-foreground">{stat.title}</p>
+                <p className="text-sm font-light text-muted-foreground">
+                  {stat.title}
+                </p>
                 <p className="text-4xl tracking-tight">{stat.value}</p>
               </div>
             </div>
@@ -47,7 +55,10 @@ export default function Dashboard() {
       </div>
 
       {/* Recent Activity */}
-      <div className="space-y-4 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
+      <div
+        className="space-y-4 animate-fade-in-up"
+        style={{ animationDelay: "400ms" }}
+      >
         <h2 className="text-3xl tracking-tight">Recent Activity</h2>
         <div className="rounded-3xl border border-border/60 bg-card/90 backdrop-blur-sm overflow-hidden watercolor-shadow-sm">
           <div className="divide-y divide-border/40">
@@ -57,13 +68,19 @@ export default function Dashboard() {
                 className="p-5 hover:bg-muted/40 transition-colors"
               >
                 <div className="flex items-start gap-4">
-                  <div className={`w-3 h-3 rounded-full mt-2 ${activity.dotColor} animate-gentle-pulse`} />
+                  <div
+                    className={`w-3 h-3 rounded-full mt-2 bg-primary dark:bg-secondary animate-gentle-pulse`}
+                  />
                   <div className="flex-1 space-y-1">
-                    <p className="font-medium text-foreground">{activity.title}</p>
-                    <p className="text-sm font-light text-muted-foreground">{activity.company}</p>
+                    <p className="font-medium text-foreground">
+                      {activity.title}
+                    </p>
+                    <p className="text-sm font-light text-muted-foreground">
+                      {activity.company}
+                    </p>
                   </div>
                   <div className="flex items-center gap-1.5 text-xs font-light text-muted-foreground bg-muted/60 px-3 py-1.5 rounded-full">
-                    <Clock className="w-3 h-3" />
+                    <Clock className="w-3 h-3 text-primary dark:text-secondary" />
                     {activity.time}
                   </div>
                 </div>
@@ -74,7 +91,10 @@ export default function Dashboard() {
       </div>
 
       {/* Quick Actions */}
-      <div className="space-y-4 animate-fade-in-up" style={{ animationDelay: '500ms' }}>
+      <div
+        className="space-y-4 animate-fade-in-up"
+        style={{ animationDelay: "500ms" }}
+      >
         <h2 className="text-3xl tracking-tight">Quick Actions</h2>
         <div className="grid gap-4 md:grid-cols-3">
           {quickActions.map((action) => (
@@ -82,14 +102,22 @@ export default function Dashboard() {
               key={action.title}
               className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/90 backdrop-blur-sm p-6 text-left watercolor-shadow-sm transition-all hover:watercolor-shadow hover:-translate-y-1"
             >
-              <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${action.gradient}`} />
+              <div
+                className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${action.gradient}`}
+              />
               <div className="relative space-y-3">
-                <div className={`w-12 h-12 rounded-2xl ${action.iconBg} flex items-center justify-center watercolor-shadow-sm group-hover:scale-110 transition-transform duration-300`}>
-                  <action.icon className={`w-6 h-6 ${action.iconColor}`} />
+                <div
+                  className={`w-12 h-12 rounded-2xl ${action.iconBg} flex items-center justify-center watercolor-shadow-sm group-hover:scale-110 transition-transform duration-300 border border-primary/10 dark:border-secondary/20`}
+                >
+                  <action.icon
+                    className={`w-6 h-6 ${action.iconColor} stroke-[1.5]`}
+                  />
                 </div>
                 <div className="space-y-1">
                   <p className="font-medium text-foreground">{action.title}</p>
-                  <p className="text-sm font-light text-muted-foreground">{action.description}</p>
+                  <p className="text-sm font-light text-muted-foreground">
+                    {action.description}
+                  </p>
                 </div>
               </div>
             </button>
@@ -105,36 +133,43 @@ const stats = [
     title: "Total Applications",
     value: "42",
     icon: LayoutGrid,
-    iconBg: "bg-rose-100/70",
-    iconColor: "text-rose-500",
-    gradient: "bg-gradient-to-br from-rose-100/50 via-pink-50/30 to-transparent",
+    iconBg: "bg-accent/30 dark:bg-muted/40",
+    iconColor: "text-primary dark:text-primary",
+
+    gradient:
+      "bg-gradient-to-br from-secondary/30 via-primary/20 to-transparent dark:from-secondary/20 dark:via-primary/15",
     trend: "+12%",
   },
   {
     title: "Active",
     value: "18",
     icon: Clock,
-    iconBg: "bg-purple-100/70",
-    iconColor: "text-purple-500",
-    gradient: "bg-gradient-to-br from-purple-100/50 via-violet-50/30 to-transparent",
+    iconBg: "bg-accent/30 dark:bg-muted/40",
+    iconColor: "text-primary dark:text-primary",
+    gradient:
+      "bg-gradient-to-br from-primary/30 via-primary/20 to-transparent dark:from-primary/20 dark:via-secondary/15",
     trend: "+8%",
   },
   {
     title: "Interviews",
     value: "5",
     icon: TrendingUp,
-    iconBg: "bg-emerald-100/70",
-    iconColor: "text-emerald-500",
-    gradient: "bg-gradient-to-br from-emerald-100/50 via-teal-50/30 to-transparent",
+    iconBg: "bg-accent/30 dark:bg-muted/40",
+    iconColor: "text-primary dark:text-primary",
+
+    gradient:
+      "bg-gradient-to-br from-accent/30 via-primary/20 to-transparent dark:from-accent/20 dark:via-secondary/15",
     trend: "+2",
   },
   {
     title: "Resumes",
     value: "3",
     icon: FileText,
-    iconBg: "bg-blue-100/70",
-    iconColor: "text-blue-500",
-    gradient: "bg-gradient-to-br from-blue-100/50 via-sky-50/30 to-transparent",
+    iconBg: "bg-accent/30 dark:bg-muted/40",
+    iconColor: "text-primary dark:text-primary",
+
+    gradient:
+      "bg-gradient-to-br from-secondary/30 via-primary/20 to-transparent dark:from-secondary/20 dark:via-primary/15",
   },
 ];
 
@@ -143,25 +178,21 @@ const recentActivity = [
     title: "Application submitted",
     company: "Google — Senior Product Designer",
     time: "2 hours ago",
-    dotColor: "bg-rose-400",
   },
   {
     title: "Interview scheduled",
     company: "Meta — Design Lead",
     time: "5 hours ago",
-    dotColor: "bg-purple-400",
   },
   {
     title: "Application viewed",
     company: "Apple — UX Designer",
     time: "1 day ago",
-    dotColor: "bg-emerald-400",
   },
   {
     title: "Resume updated",
     company: "Design Portfolio v3",
     time: "2 days ago",
-    dotColor: "bg-blue-400",
   },
 ];
 
@@ -170,24 +201,30 @@ const quickActions = [
     title: "New Application",
     description: "Track a new job application",
     icon: LayoutGrid,
-    iconBg: "bg-rose-100/70",
-    iconColor: "text-rose-500",
-    gradient: "bg-gradient-to-br from-rose-100/50 via-pink-50/30 to-transparent",
+    iconBg: "bg-accent/30 dark:bg-muted/40",
+    iconColor: "text-primary dark:text-primary",
+
+    gradient:
+      "bg-gradient-to-br from-secondary/30 via-primary/20 to-transparent dark:from-secondary/20 dark:via-primary/15",
   },
   {
     title: "Upload Resume",
     description: "Add a new resume version",
     icon: FileText,
-    iconBg: "bg-purple-100/70",
-    iconColor: "text-purple-500",
-    gradient: "bg-gradient-to-br from-purple-100/50 via-violet-50/30 to-transparent",
+    iconBg: "bg-accent/30 dark:bg-muted/40",
+    iconColor: "text-primary dark:text-primary",
+
+    gradient:
+      "bg-gradient-to-br from-primary/30 via-primary/20 to-transparent dark:from-primary/20 dark:via-secondary/15",
   },
   {
     title: "View Insights",
     description: "Analyze your progress",
     icon: TrendingUp,
-    iconBg: "bg-emerald-100/70",
-    iconColor: "text-emerald-500",
-    gradient: "bg-gradient-to-br from-emerald-100/50 via-teal-50/30 to-transparent",
+    iconBg: "bg-accent/30 dark:bg-muted/40",
+    iconColor: "text-primary dark:text-primary",
+
+    gradient:
+      "bg-gradient-to-br from-accent/30 via-primary/20 to-transparent dark:from-accent/20 dark:via-secondary/15",
   },
 ];

@@ -1,19 +1,19 @@
-import { ArrowRight, Circle } from "lucide-react";
+import { Circle, GraduationCap } from "lucide-react";
 import LoginButton from "../LoginButton";
 
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-hidden relative">
-      {/* Artsy watercolor background blobs */}
+      {/* Blue academic background blobs */}
       <div className="absolute top-0 right-0 w-[700px] h-[700px] animate-blob-morph opacity-70">
-        <div className="w-full h-full bg-gradient-to-br from-rose-300/40 via-pink-200/30 to-transparent rounded-full blur-3xl animate-gentle-pulse" />
+        <div className="w-full h-full bg-gradient-to-br from-[#8da9c4]/40 via-[#134074]/30 to-transparent rounded-full blur-3xl animate-gentle-pulse" />
       </div>
       <div
         className="absolute bottom-0 left-0 w-[600px] h-[600px] animate-blob-morph opacity-60"
         style={{ animationDelay: "2s" }}
       >
         <div
-          className="w-full h-full bg-gradient-to-tr from-purple-300/40 via-violet-200/30 to-transparent rounded-full blur-3xl animate-gentle-pulse"
+          className="w-full h-full bg-gradient-to-tr from-[#134074]/40 via-[#5a8ab8]/30 to-transparent rounded-full blur-3xl animate-gentle-pulse"
           style={{ animationDelay: "1s" }}
         />
       </div>
@@ -22,7 +22,7 @@ export default function LandingPage() {
         style={{ animationDelay: "4s" }}
       >
         <div
-          className="w-full h-full bg-gradient-to-br from-emerald-200/35 via-teal-200/25 to-transparent rounded-full blur-3xl animate-gentle-pulse"
+          className="w-full h-full bg-linear-to-br from-[#8da9c4]/35 via-[#134074]/25 to-transparent rounded-full blur-3xl animate-gentle-pulse"
           style={{ animationDelay: "2s" }}
         />
       </div>
@@ -31,7 +31,7 @@ export default function LandingPage() {
         style={{ animationDelay: "6s" }}
       >
         <div
-          className="w-full h-full bg-gradient-to-tr from-amber-200/35 via-yellow-200/25 to-transparent rounded-full blur-3xl animate-gentle-pulse"
+          className="w-full h-full bg-linear-to-tr from-[#6b9ac8]/35 via-[#8da9c4]/25 to-transparent rounded-full blur-3xl animate-gentle-pulse"
           style={{ animationDelay: "3s" }}
         />
       </div>
@@ -40,7 +40,7 @@ export default function LandingPage() {
         style={{ animationDelay: "3s" }}
       >
         <div
-          className="w-full h-full bg-gradient-to-bl from-blue-300/35 via-sky-200/25 to-transparent rounded-full blur-3xl animate-gentle-pulse"
+          className="w-full h-full bg-linear-to-bl from-[#134074]/35 via-[#8da9c4]/25 to-transparent rounded-full blur-3xl animate-gentle-pulse"
           style={{ animationDelay: "4s" }}
         />
       </div>
@@ -50,8 +50,8 @@ export default function LandingPage() {
         <nav className="container mx-auto px-8 py-12">
           <div className="max-w-7xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-3">
-              <div className="w-3 h-3 bg-gradient-to-br from-rose-400 via-pink-400 to-purple-400 rounded-full animate-gentle-pulse" />
-              <span className="text-lg tracking-wide font-handwritten text-2xl">
+              <GraduationCap className="w-6 h-6 text-[#134074] animate-gentle-pulse" />
+              <span className="text-2xl tracking-wide font-handwritten">
                 ApplyFlow
               </span>
             </div>
@@ -66,7 +66,7 @@ export default function LandingPage() {
                 <h1 className="text-[5rem] md:text-[7rem] lg:text-[9rem] leading-[1.2]">
                   Job search,
                   <span
-                    className="block italic bg-gradient-to-r from-rose-400 via-purple-400 via-violet-400 to-blue-400 bg-clip-text text-transparent animate-shimmer"
+                    className="block italic bg-linear-to-r from-[#134074] via-[#5a8ab8] to-[#8da9c4] bg-clip-text text-transparent animate-shimmer"
                     style={{ backgroundSize: "200% auto" }}
                   >
                     reimagined
@@ -141,8 +141,8 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 border-t border-border/60 pt-12">
               <div className="flex items-center gap-3">
-                <div className="w-3 h-3 bg-gradient-to-br from-rose-400 via-pink-400 to-purple-400 rounded-full animate-gentle-pulse" />
-                <span className="text-sm tracking-wide font-handwritten text-xl text-muted-foreground">
+                <GraduationCap className="w-5 h-5 text-[#134074] animate-gentle-pulse" />
+                <span className="text-xl tracking-wide font-handwritten text-muted-foreground">
                   ApplyFlow
                 </span>
               </div>
@@ -162,24 +162,24 @@ const features = [
     title: "Track everything",
     description:
       "A living record of every application. Status, timelines, and notes in a space that grows with your search.",
-    color: "text-rose-400",
+    color: "text-[#134074]",
   },
   {
     title: "Version your story",
     description:
       "Craft tailored resumes for every opportunity. Each version is saved, searchable, and ready when you need it.",
-    color: "text-purple-400",
+    color: "text-[#5a8ab8]",
   },
   {
     title: "Discover patterns",
     description:
       "AI agents analyze your applications to surface insights you might have missed. Learn what resonates.",
-    color: "text-emerald-400",
+    color: "text-[#13315c]",
   },
   {
     title: "Converse naturally",
     description:
       "Ask questions, request feedback, explore your data. Your AI assistant understands context and remembers.",
-    color: "text-blue-400",
+    color: "text-[#8da9c4]",
   },
 ];

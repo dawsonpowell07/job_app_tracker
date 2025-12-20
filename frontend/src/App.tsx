@@ -83,7 +83,7 @@ function App() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="w-14 h-14 border-4 border-purple-200/40 border-t-purple-400 rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-14 h-14 border-4 border-[#8da9c4]/40 border-t-[#134074] rounded-full animate-spin mx-auto mb-4"></div>
           <div className="text-muted-foreground font-light">Loading...</div>
         </div>
       </div>

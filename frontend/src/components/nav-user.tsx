@@ -57,7 +57,7 @@ export function NavUser({
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg bg-gradient-to-br from-pink-200 to-purple-200 text-gray-700 text-xs font-light">
+                <AvatarFallback className="rounded-lg bg-gradient-to-br from-[#8da9c4] to-[#134074] text-gray-700 text-xs font-light">
                   {getInitials(user.name, user.email)}
                 </AvatarFallback>
               </Avatar>
@@ -78,7 +78,7 @@ export function NavUser({
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg bg-gradient-to-br from-pink-200 to-purple-200 text-gray-700 text-xs font-light">
+                  <AvatarFallback className="rounded-lg bg-gradient-to-br from-[#8da9c4] to-[#134074] text-gray-700 text-xs font-light">
                     {getInitials(user.name, user.email)}
                   </AvatarFallback>
                 </Avatar>

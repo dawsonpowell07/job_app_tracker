@@ -5,7 +5,7 @@ import {
   LayoutGrid,
   FileText,
   MessageSquare,
-  Circle,
+  GraduationCap,
   Home,
 } from "lucide-react";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -80,9 +80,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               to="/"
               className="flex items-center gap-2 px-2 py-1.5 group-data-[collapsible=icon]:px-2 hover:opacity-70 transition-opacity"
             >
-              <Circle
-                className="w-2 h-2 text-pink-400 shrink-0"
-                fill="currentColor"
+              <GraduationCap
+                className="w-5 h-5 text-[#134074] shrink-0"
               />
               <span className="font-handwritten text-base group-data-[collapsible=icon]:hidden">
                 ApplyFlow

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Dropzone } from '../components/dnd';
+import { useState } from "react";
+import { Dropzone } from "../components/dnd";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,9 +9,14 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '../components/ui/alert-dialog';
-import { Button } from '../components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+} from "../components/ui/alert-dialog";
+import { Button } from "../components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
 
 interface Resume {
   id: string;
@@ -20,9 +25,9 @@ interface Resume {
 }
 
 const mockResumes: Resume[] = [
-  { id: '1', name: 'Resume_v1.pdf', uploadDate: '2023-10-26' },
-  { id: '2', name: 'Resume_v2.docx', uploadDate: '2023-10-27' },
-  { id: '3', name: 'Frontend_Resume.pdf', uploadDate: '2023-10-28' },
+  { id: "1", name: "Resume_v1.pdf", uploadDate: "2023-10-26" },
+  { id: "2", name: "Resume_v2.docx", uploadDate: "2023-10-27" },
+  { id: "3", name: "Frontend_Resume.pdf", uploadDate: "2023-10-28" },
 ];
 
 export default function Resumes() {
@@ -42,7 +47,7 @@ export default function Resumes() {
       const newResume: Resume = {
         id: (resumes.length + 1).toString(),
         name: selectedFile.name,
-        uploadDate: new Date().toISOString().split('T')[0],
+        uploadDate: new Date().toISOString().split("T")[0],
       };
       setResumes([...resumes, newResume]);
     }

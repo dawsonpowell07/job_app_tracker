@@ -32,7 +32,7 @@ export function Dropzone({ onDrop, className }: DropzoneProps) {
       {...getRootProps()}
       className={cn(
         'flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-12 text-center cursor-pointer hover:border-gray-400 transition-colors',
-        { 'border-blue-500 bg-blue-50': isDragActive },
+        { 'border-[#134074] bg-[#8da9c4]/20': isDragActive },
         className,
       )}
     >

@@ -16,10 +16,15 @@ import { Badge } from "@/components/ui/badge";
 import type { Application } from "@/types";
 
 const statusColors = {
-  applied: "bg-blue-100 text-blue-800",
-  interviewing: "bg-yellow-100 text-yellow-800",
-  rejected: "bg-red-100 text-red-800",
-  offer: "bg-green-100 text-green-800",
+  applied: "bg-blue-100 text-blue-900 dark:bg-blue-900/40 dark:text-blue-100",
+
+  interviewing:
+    "bg-cyan-100 text-cyan-900 dark:bg-cyan-900/40 dark:text-cyan-100",
+
+  rejected: "bg-rose-100 text-rose-900 dark:bg-rose-900/40 dark:text-rose-100",
+
+  offer:
+    "bg-emerald-100 text-emerald-900 dark:bg-emerald-900/40 dark:text-emerald-100",
 };
 
 export const columns: ColumnDef<Application>[] = [
