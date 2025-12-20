@@ -18,7 +18,7 @@ createRoot(document.getElementById('root')!).render(
       cacheLocation="localstorage"
       useRefreshTokens={true}
     >
-      <CopilotKit runtimeUrl="http://localhost:4000/copilotkit" agent="applyflow_agent">
+      <CopilotKit runtimeUrl="http://localhost:4000/copilotkit" agent="applyflow_agent" enableInspector={false}>
         <App />
       </CopilotKit>
     </Auth0Provider>

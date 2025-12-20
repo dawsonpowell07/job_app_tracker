@@ -1,18 +1,88 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { CopilotSidebar } from '@copilotkit/react-ui';
-import LoginButton from './LoginButton';
-import LogoutButton from './LogoutButton';
-import Profile from './Profile';
-import { Button } from "@/components/ui/button"
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import LandingPage from './components/LandingPage';
+import Dashboard from './pages/Dashboard';
+import BentoBoxView from './pages/BentoBoxView';
+import TimelineView from './pages/TimelineView';
+import ExcelView from './pages/ExcelView';
+import BucketView from './pages/BucketView';
+import Resumes from './pages/Resumes';
+import Chat from './pages/Chat';
+import { AppSidebar } from "@/components/app-sidebar"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbPage,
+} from "@/components/ui/breadcrumb"
+import { Separator } from "@/components/ui/separator"
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar"
+
+function getBreadcrumb(pathname: string): string {
+  const routes: Record<string, string> = {
+    '/': 'Dashboard',
+    '/applications/bento-box': 'Bento Box View',
+    '/applications/timeline': 'Timeline View',
+    '/applications/excel': 'Excel View',
+    '/applications/bucket': 'Bucket View',
+    '/resumes': 'Resumes',
+    '/chat': 'AI Chat',
+  };
+  return routes[pathname] || 'Dashboard';
+}
+
+function AppContent() {
+  const location = useLocation();
+  const breadcrumb = getBreadcrumb(location.pathname);
+
+  return (
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 border-b border-black/50">
+          <div className="flex items-center gap-2 px-4">
+            <SidebarTrigger className="-ml-1" />
+            <Separator
+              orientation="vertical"
+              className="mr-2 data-[orientation=vertical]:h-4"
+            />
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbPage className="font-light">{breadcrumb}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+        </header>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/applications/bento-box" element={<BentoBoxView />} />
+          <Route path="/applications/timeline" element={<TimelineView />} />
+          <Route path="/applications/excel" element={<ExcelView />} />
+          <Route path="/applications/bucket" element={<BucketView />} />
+          <Route path="/resumes" element={<Resumes />} />
+          <Route path="/chat" element={<Chat />} />
+        </Routes>
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}
 
 function App() {
   const { isAuthenticated, isLoading, error } = useAuth0();
 
   if (isLoading) {
     return (
-      <div className="app-container">
-        <div className="loading-state">
-          <div className="loading-text">Loading...</div>
+      <div className="min-h-screen bg-[#fefefe] flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-purple-200/30 border-t-purple-300 rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="text-gray-400 font-light">Loading...</div>
         </div>
       </div>
     );
@@ -20,11 +90,11 @@ function App() {
 
   if (error) {
     return (
-      <div className="app-container">
-        <div className="error-state">
-          <div className="error-title">Oops!</div>
-          <div className="error-message">Something went wrong</div>
-          <div className="error-sub-message">{error.message}</div>
+      <div className="min-h-screen bg-[#fefefe] flex items-center justify-center p-6">
+        <div className="max-w-md text-center space-y-4">
+          <div className="text-5xl mb-4">⚠️</div>
+          <h1 className="text-3xl font-light text-gray-900">Something went wrong</h1>
+          <p className="text-gray-500 font-light">{error.message}</p>
         </div>
       </div>
     );
@@ -32,44 +102,24 @@ function App() {
 
   if (isAuthenticated) {
     return (
-      <CopilotSidebar
-        defaultOpen={false}
-        clickOutsideToClose={false}
-        instructions="You are an AI assistant for ApplyFlow, a job application tracking system. Help users manage their job applications, answer questions about their application status, and provide guidance on job searching and application management."
-        labels={{
-          title: "ApplyFlow Assistant",
-          initial: "Hi! How can I help you manage your job applications today?",
-          placeholder: "Ask about your applications...",
-        }}
-      >
-        <div className="app-container">
-          <div className="main-card-wrapper">
-            <h1 className="main-title">ApplyFlow</h1>
-            <p className="main-subtitle">Manage your job applications with ease</p>
-            <div className="action-card" style={{ marginTop: '2rem' }}>
-              <Profile />
-            </div>
-            <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-              <LogoutButton />
-            </div>
-          </div>
-        </div>
-      </CopilotSidebar>
+      <BrowserRouter>
+        <CopilotSidebar
+          defaultOpen={false}
+          clickOutsideToClose={false}
+          instructions="You are an AI assistant for ApplyFlow, a job application tracking system. Help users manage their job applications, answer questions about their application status, and provide guidance on job searching and application management."
+          labels={{
+            title: "ApplyFlow Assistant",
+            initial: "Hi! How can I help you manage your job applications today?",
+            placeholder: "Ask about your applications...",
+          }}
+        >
+          <AppContent />
+        </CopilotSidebar>
+      </BrowserRouter>
     );
   }
 
-  return (
-    <div className="app-container">
-      <div className="main-card-wrapper">
-        <h1 className="main-title">ApplyFlow</h1>
-        <p className="main-subtitle">Manage your job applications with ease</p>
-        <div className="action-card">
-          <p className="action-text">Sign in to get started tracking your job applications</p>
-          <LoginButton />
-        </div>
-      </div>
-    </div>
-  );
+  return <LandingPage />;
 }
 
 export default App;
