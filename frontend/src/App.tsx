@@ -1,39 +1,39 @@
-import { useAuth0 } from '@auth0/auth0-react';
-import { CopilotSidebar } from '@copilotkit/react-ui';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import LandingPage from './components/LandingPage';
-import Dashboard from './pages/Dashboard';
-import BentoBoxView from './pages/BentoBoxView';
-import TimelineView from './pages/TimelineView';
-import ExcelView from './pages/ExcelView';
-import BucketView from './pages/BucketView';
-import Resumes from './pages/Resumes';
-import Chat from './pages/Chat';
-import { AppSidebar } from "@/components/app-sidebar"
+import { useAuth0 } from "@auth0/auth0-react";
+import { CopilotSidebar } from "@copilotkit/react-ui";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import LandingPage from "./components/LandingPage";
+import Dashboard from "./pages/Dashboard";
+import BentoBoxView from "./pages/BentoBoxView";
+import TimelineView from "./pages/TimelineView";
+import ExcelView from "./pages/ExcelView";
+import BucketView from "./pages/BucketView";
+import Resumes from "./pages/Resumes";
+import Chat from "./pages/Chat";
+import { AppSidebar } from "@/components/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbList,
   BreadcrumbPage,
-} from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 function getBreadcrumb(pathname: string): string {
   const routes: Record<string, string> = {
-    '/': 'Dashboard',
-    '/applications/bento-box': 'Bento Box View',
-    '/applications/timeline': 'Timeline View',
-    '/applications/excel': 'Excel View',
-    '/applications/bucket': 'Bucket View',
-    '/resumes': 'Resumes',
-    '/chat': 'AI Chat',
+    "/": "Dashboard",
+    "/applications/bento-box": "Bento Box View",
+    "/applications/timeline": "Timeline View",
+    "/applications/excel": "Excel View",
+    "/applications/bucket": "Bucket View",
+    "/resumes": "Resumes",
+    "/chat": "AI Chat",
   };
-  return routes[pathname] || 'Dashboard';
+  return routes[pathname] || "Dashboard";
 }
 
 function AppContent() {
@@ -54,7 +54,9 @@ function AppContent() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage className="font-light">{breadcrumb}</BreadcrumbPage>
+                  <BreadcrumbPage className="font-light">
+                    {breadcrumb}
+                  </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -94,7 +96,9 @@ function App() {
         <div className="max-w-md text-center space-y-4 rounded-3xl border border-border/60 bg-card/90 p-12 watercolor-shadow">
           <div className="text-6xl mb-4">⚠️</div>
           <h1 className="text-4xl text-foreground">Something went wrong</h1>
-          <p className="text-muted-foreground font-light text-lg">{error.message}</p>
+          <p className="text-muted-foreground font-light text-lg">
+            {error.message}
+          </p>
         </div>
       </div>
     );
@@ -109,7 +113,8 @@ function App() {
           instructions="You are an AI assistant for ApplyFlow, a job application tracking system. Help users manage their job applications, answer questions about their application status, and provide guidance on job searching and application management."
           labels={{
             title: "ApplyFlow Assistant",
-            initial: "Hi! How can I help you manage your job applications today?",
+            initial:
+              "Hi! How can I help you manage your job applications today?",
             placeholder: "Ask about your applications...",
           }}
         >

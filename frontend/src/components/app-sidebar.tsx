@@ -22,6 +22,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { ModeToggle } from "@/components/mode-toggle";
 
 const data = {
   navMain: [
@@ -93,7 +94,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className="justify-center">
+        <ModeToggle />
         <NavUser
           user={
             user
