@@ -18,7 +18,7 @@ export function ModeToggle() {
 
   const toggleTheme = () => {
     const nextThemeIndex = (currentThemeIndex + 1) % themes.length;
-    setTheme(themes[nextThemeIndex]);
+    setTheme(themes[nextThemeIndex] as "light" | "dark" | "system");
     setCurrentThemeIndex(nextThemeIndex);
   };
 

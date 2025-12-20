@@ -25,6 +25,8 @@ const statusColors = {
 
   offer:
     "bg-emerald-100 text-emerald-900 dark:bg-emerald-900/40 dark:text-emerald-100",
+
+  ghosted: "bg-gray-100 text-gray-900 dark:bg-gray-900/40 dark:text-gray-100",
 };
 
 export const columns: ColumnDef<Application>[] = [
@@ -142,7 +144,7 @@ export const columns: ColumnDef<Application>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(app.id)}
+              onClick={() => navigator.clipboard.writeText(app.id || "")}
             >
               Copy Application ID
             </DropdownMenuItem>

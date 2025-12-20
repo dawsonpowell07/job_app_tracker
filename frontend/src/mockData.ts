@@ -1,5 +1,5 @@
 
-import { Application, Resume } from "./types";
+import type { Application, Resume } from "./types";
 
 export const mockApplications: Application[] = [
   {
@@ -71,6 +71,34 @@ export const mockApplications: Application[] = [
     status: "applied",
     created_at: new Date("2024-11-05T08:45:00Z"),
     updated_at: new Date("2024-11-05T08:45:00Z"),
+  },
+  {
+    id: "app6",
+    user_id: "user123",
+    job_title: "Full Stack Engineer",
+    company: "StartupXYZ",
+    pay: 130000,
+    location: "Boston, MA",
+    resume_used: "Software_Engineer_Resume.pdf",
+    resume_id: "res1",
+    job_url: "https://example.com/job/app6",
+    status: "ghosted",
+    created_at: new Date("2024-10-01T14:30:00Z"),
+    updated_at: new Date("2024-10-01T14:30:00Z"),
+  },
+  {
+    id: "app7",
+    user_id: "user123",
+    job_title: "Backend Developer",
+    company: "Enterprise Corp",
+    pay: 125000,
+    location: "Chicago, IL",
+    resume_used: "Software_Engineer_Resume.pdf",
+    resume_id: "res1",
+    job_url: "https://example.com/job/app7",
+    status: "ghosted",
+    created_at: new Date("2024-09-25T09:00:00Z"),
+    updated_at: new Date("2024-09-25T09:00:00Z"),
   },
 ];
 

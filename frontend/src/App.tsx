@@ -7,6 +7,7 @@ import BentoBoxView from "./pages/BentoBoxView";
 import TimelineView from "./pages/TimelineView";
 import ExcelView from "./pages/ExcelView";
 import BucketView from "./pages/BucketView";
+import KanbanView from "./pages/KanbanView";
 import Resumes from "./pages/Resumes";
 import Chat from "./pages/Chat";
 import { AppSidebar } from "@/components/app-sidebar";
@@ -30,6 +31,7 @@ function getBreadcrumb(pathname: string): string {
     "/applications/timeline": "Timeline View",
     "/applications/excel": "Excel View",
     "/applications/bucket": "Bucket View",
+    "/applications/kanban": "Kanban View",
     "/resumes": "Resumes",
     "/chat": "AI Chat",
   };
@@ -68,6 +70,7 @@ function AppContent() {
           <Route path="/applications/timeline" element={<TimelineView />} />
           <Route path="/applications/excel" element={<ExcelView />} />
           <Route path="/applications/bucket" element={<BucketView />} />
+          <Route path="/applications/kanban" element={<KanbanView />} />
           <Route path="/resumes" element={<Resumes />} />
           <Route path="/chat" element={<Chat />} />
         </Routes>

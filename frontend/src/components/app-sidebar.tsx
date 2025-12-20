@@ -53,6 +53,10 @@ const data = {
           title: "Bucket View",
           url: "/applications/bucket",
         },
+        {
+          title: "Kanban View",
+          url: "/applications/kanban",
+        },
       ],
     },
     {

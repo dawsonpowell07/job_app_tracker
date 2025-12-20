@@ -1,3 +1,10 @@
+export type ApplicationStatus =
+  | "applied"
+  | "interviewing"
+  | "offer"
+  | "rejected"
+  | "ghosted";
+
 export interface Application {
     job_title?: string;
     company?: string;
@@ -6,7 +13,7 @@ export interface Application {
     resume_used?: string;
     resume_id?: string;
     job_url?: string;
-    status: string;
+    status: ApplicationStatus;
     id?: string;
     user_id?: string;
     created_at?: Date;
