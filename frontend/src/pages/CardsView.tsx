@@ -189,7 +189,7 @@ function ApplicationDetailPanel({
 
   const updateField = (
     field: keyof Application,
-    value: string | number | ApplicationStatus
+    value: string | number | ApplicationStatus,
   ) => {
     if (!formData) return;
     setFormData((prev) => (prev ? { ...prev, [field]: value } : null));
@@ -274,7 +274,7 @@ function ApplicationDetailPanel({
                   >
                     {statusConfig[status].label}
                   </button>
-                )
+                ),
               )}
             </div>
           </div>
@@ -623,7 +623,7 @@ function CardsViewContent() {
                         {String(value)}
                       </span>
                     </div>
-                  )
+                  ),
               )}
           </div>
         </div>
@@ -730,7 +730,7 @@ function CardsViewContent() {
 
   const handleSaveApplication = (updated: Application) => {
     setApplications((prev) =>
-      prev.map((app) => (app.id === updated.id ? updated : app))
+      prev.map((app) => (app.id === updated.id ? updated : app)),
     );
     setSelectedApplication(updated);
   };
@@ -764,7 +764,7 @@ function CardsViewContent() {
             .slice(0, 4)
             .map((status) => {
               const count = applications.filter(
-                (app) => app.status === status
+                (app) => app.status === status,
               ).length;
               return (
                 <div
@@ -813,8 +813,7 @@ export default function CardsView() {
   return (
     <CopilotSidebar
       defaultOpen={false}
-      clickOutsideToClose={false}
-      instructions="You are an AI assistant for ApplyFlow's application tracking system. Help users manage their job applications, track application status, update application details, and organize their job search."
+      clickOutsideToClose={true}
       labels={{
         title: "Applications Assistant",
         initial: "Hi! How can I help you manage your job applications today?",
