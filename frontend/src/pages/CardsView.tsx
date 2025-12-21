@@ -19,6 +19,16 @@ import { CopilotKit } from "@copilotkit/react-core";
 import { CopilotSidebar } from "@copilotkit/react-ui";
 import { useAuth0 } from "@auth0/auth0-react";
 
+interface AddApplicationInterface {
+  job_title: string;
+  company: string;
+  status?: ApplicationStatus;
+  pay?: number;
+  location?: string;
+  job_url?: string;
+  resume_used?: string;
+}
+
 const statusConfig: Record<
   ApplicationStatus,
   { label: string; className: string }
@@ -459,10 +469,36 @@ function CardsViewContent() {
 
   useCopilotAction({
     name: "add_application",
-    description:
-      "Request approval from the user to add a new job application. Provide job details like job_title, company, pay, location, job_url, and status.",
-    renderAndWaitForResponse: ({ args, respond, status }) => {
-      const newApp = args as Partial<Application>;
+    available: "disabled",
+    parameters: [
+      { name: "job_title", type: "string", required: true },
+      { name: "company", type: "string", required: true },
+      { name: "status", type: "string", required: false },
+      { name: "pay", type: "number", required: false },
+      { name: "location", type: "string", required: false },
+      { name: "job_url", type: "string", required: false },
+      { name: "resume_used", type: "string", required: false },
+    ],
+    render: ({ args, result, status }) => {
+      if (status !== "complete") {
+        return (
+          <div className="p-5 bg-card border border-border/60 rounded-xl space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+            <span className="text-lg font-medium">
+              Adding your application...
+            </span>
+          </div>
+        );
+      }
+
+      const newApp: AddApplicationInterface = {
+        job_title: args.job_title,
+        company: args.company,
+        status: args.status || "applied",
+        pay: args.pay || 0,
+        location: args.location || "",
+        job_url: args.job_url || "",
+        resume_used: args.resume_used || "",
+      };
 
       return (
         <div className="p-5 bg-card border border-border/60 rounded-xl space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
@@ -532,55 +568,158 @@ function CardsViewContent() {
               </div>
             )}
           </div>
+        </div>
+      );
+    },
+  });
 
-          <div
-            className={`flex gap-2 pt-2 ${
-              status !== "executing" ? "hidden" : ""
-            }`}
-          >
-            <Button
-              onClick={() => {
-                if (respond) {
-                  // Create the new application with a unique ID
-                  const application: Application = {
-                    id: `app_${Date.now()}`,
-                    user_id: "user123",
-                    job_title: newApp.job_title || "",
-                    company: newApp.company || "",
-                    pay: newApp.pay,
-                    location: newApp.location,
-                    resume_used: newApp.resume_used,
-                    resume_id: newApp.resume_id,
-                    job_url: newApp.job_url,
-                    status: (newApp.status as ApplicationStatus) || "applied",
-                    created_at: new Date(),
-                    updated_at: new Date(),
-                  };
+  useCopilotAction({
+    name: "update_application",
+    available: "disabled",
+    parameters: [
+      { name: "application_id", type: "string", required: true },
+      { name: "job_title", type: "string", required: false },
+      { name: "company", type: "string", required: false },
+      { name: "pay", type: "number", required: false },
+      { name: "location", type: "string", required: false },
+      { name: "status", type: "string", required: false },
+      { name: "resume_id", type: "string", required: false },
+      { name: "job_url", type: "string", required: false },
+    ],
+    render: ({ args, status }) => {
+      if (status !== "complete") {
+        return (
+          <div className="p-5 bg-card border border-border/60 rounded-xl space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+            <span className="text-lg font-medium">Updating application...</span>
+          </div>
+        );
+      }
+      return (
+        <div className="p-5 bg-card border border-border/60 rounded-xl space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <div className="space-y-1">
+            <h3 className="text-lg font-medium">Update Application</h3>
+          </div>
+          <div className="bg-muted/30 rounded-lg p-4 space-y-3">
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+              Updated Details
+            </p>
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-muted-foreground">Application ID</span>
+              <span className="font-medium text-foreground">
+                {args.application_id}
+              </span>
+            </div>
+            {Object.entries(args)
+              .filter(([key]) => key !== "application_id")
+              .map(
+                ([key, value]) =>
+                  value && (
+                    <div
+                      key={key}
+                      className="flex items-center justify-between text-sm border-t border-border/20 pt-3"
+                    >
+                      <span className="text-muted-foreground capitalize">
+                        {key.replace(/_/g, " ")}
+                      </span>
+                      <span className="font-medium text-foreground">
+                        {String(value)}
+                      </span>
+                    </div>
+                  )
+              )}
+          </div>
+        </div>
+      );
+    },
+  });
 
-                  // Add to applications list
-                  setApplications((prev) => [...prev, application]);
-                  setSelectedApplication(application);
+  useCopilotAction({
+    name: "delete_application",
+    available: "disabled",
+    parameters: [{ name: "application_id", type: "string", required: true }],
+    render: ({ args, status }) => {
+      if (status !== "complete") {
+        return (
+          <div className="p-5 bg-card border border-border/60 rounded-xl space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+            <span className="text-lg font-medium">Deleting application...</span>
+          </div>
+        );
+      }
+      return (
+        <div className="p-5 bg-card border border-border/60 rounded-xl space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <div className="space-y-1">
+            <h3 className="text-lg font-medium">Delete Application</h3>
+          </div>
+          <div className="bg-muted/30 rounded-lg p-4 space-y-3">
+            <p className="text-sm font-medium text-foreground">
+              Application{" "}
+              <span className="font-mono text-primary">
+                {args.application_id}
+              </span>{" "}
+              has been deleted.
+            </p>
+          </div>
+        </div>
+      );
+    },
+  });
 
-                  respond(
-                    `Successfully added application for ${application.job_title} at ${application.company}`
-                  );
-                }
-              }}
-              disabled={status !== "executing"}
-              className="flex-1"
-              size="sm"
-            >
-              Add Application
-            </Button>
-            <Button
-              onClick={() => respond?.("User cancelled the application")}
-              disabled={status !== "executing"}
-              variant="outline"
-              size="sm"
-              className="flex-1"
-            >
-              Cancel
-            </Button>
+  useCopilotAction({
+    name: "get_applications",
+    available: "disabled",
+    parameters: [{ name: "status", type: "string", required: false }],
+    render: ({ args, status, result }) => {
+      if (status !== "complete") {
+        return (
+          <div className="p-5 bg-card border border-border/60 rounded-xl space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+            <span className="text-lg font-medium">Getting applications...</span>
+          </div>
+        );
+      }
+
+      const applications = result?.data || [];
+
+      return (
+        <div className="p-5 bg-card border border-border/60 rounded-xl space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <div className="space-y-1">
+            <h3 className="text-lg font-medium">
+              {applications.length} Applications Found
+            </h3>
+          </div>
+          <div className="bg-muted/30 rounded-lg p-4 space-y-3">
+            {args.status && (
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Filtered by</span>
+                <Badge
+                  className={`${
+                    statusConfig[args.status as ApplicationStatus]?.className ||
+                    "bg-muted text-muted-foreground"
+                  } text-xs`}
+                >
+                  {statusConfig[args.status as ApplicationStatus]?.label ||
+                    args.status}
+                </Badge>
+              </div>
+            )}
+            {applications.length === 0 ? (
+              <p className="text-sm text-muted-foreground text-center py-4">
+                No applications match your criteria.
+              </p>
+            ) : (
+              <div className="space-y-2">
+                {applications.map((app: any, index: number) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between text-sm border-t border-border/20 pt-2"
+                  >
+                    <span className="font-medium text-foreground">
+                      {app.job_title}
+                    </span>
+                    <span className="text-muted-foreground">{app.company}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       );

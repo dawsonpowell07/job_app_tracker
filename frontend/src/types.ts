@@ -29,3 +29,13 @@ export interface Resume {
   created_at?: Date;
   updated_at?: Date;
 }
+
+export interface AddApplicationInterface {
+  job_title: string;
+  company: string;
+  status?: ApplicationStatus;
+  pay?: number;
+  location?: string;
+  job_url?: string;
+  resume_used?: string;
+}
