@@ -32,6 +32,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useFrontendTool } from "@copilotkit/react-core";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -71,6 +72,31 @@ export function DataTable<TData, TValue>({
       columnVisibility,
       rowSelection,
       globalFilter,
+    },
+  });
+
+  const highlightCells = (ids: string[]) => {
+    // Implement your logic to highlight cells based on the provided IDs
+    console.log("Highlighting cells with IDs:", ids);
+  };
+
+  useFrontendTool({
+    name: "highlightApplicationCells",
+    description:
+      "Highlight cells to make them stand out to the user. useful when you want to draw attention to specific cells or applicaitions",
+    parameters: [
+      {
+        name: "ids",
+        type: "string[]",
+        description: "IDs of the applications to highlight",
+      },
+    ],
+    handler: ({ ids }) => {
+      highlightCells(ids);
+      return {
+        status: "success",
+        message: `Cells highlighted`,
+      };
     },
   });
 
