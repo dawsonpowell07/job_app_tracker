@@ -109,10 +109,16 @@ Key capabilities:
 - Retrieve applications (all or filtered by status)
 - Set the active application in the UI for viewing
 
+- FRONTEND TOOLS:
+- highlightApplicationCells(application id) -> takes in an application id and highlights the corresponding row in the UI
+- use when you want to highlight a specific application(s) in the UI
+- setActiveApplication(application id) -> takes in an application id and sets it as the active application in the UI
+- use when you want to set a specific application as the active one in the UI
+
 When adding or updating applications, try to extract as much information as possible from the user's input.
 Be conversational and helpful in guiding users through managing their applications.
 
-{
+applications = [{
     id: "app1",
     user_id: "user123",
     job_title: "Software Engineer",
@@ -212,7 +218,7 @@ Be conversational and helpful in guiding users through managing their applicatio
   },
 ];
 
-export const mockResumes: Resume[] = [
+resumes = [
   {
     id: "res1",
     user_id: "user123",

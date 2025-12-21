@@ -76,8 +76,17 @@ export function DataTable<TData, TValue>({
   });
 
   const highlightCells = (ids: string[]) => {
-    // Implement your logic to highlight cells based on the provided IDs
-    console.log("Highlighting cells with IDs:", ids);
+    // Build a selection object where keys are row indices
+    const selection: Record<string, boolean> = {};
+
+    table.getRowModel().rows.forEach((row) => {
+      const rowData = row.original as { id?: string };
+      if (rowData.id && ids.includes(rowData.id)) {
+        selection[row.id] = true;
+      }
+    });
+
+    setRowSelection(selection);
   };
 
   useFrontendTool({
