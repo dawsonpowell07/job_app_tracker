@@ -61,8 +61,18 @@ const data = {
     },
     {
       title: "Resumes",
-      url: "/resumes",
+      url: "/resumes/my-resumes",
       icon: FileText,
+      items: [
+        {
+          title: "My Resumes",
+          url: "/resumes/my-resumes",
+        },
+        {
+          title: "Create Resume",
+          url: "/resumes/create",
+        },
+      ],
     },
     {
       title: "Chat",

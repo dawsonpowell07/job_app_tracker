@@ -1,6 +1,9 @@
 import { columns } from "@/components/columns";
 import { DataTable } from "@/components/data-table.tsx";
 import type { Application } from "@/types";
+import { CopilotKit } from "@copilotkit/react-core";
+import { CopilotSidebar } from "@copilotkit/react-ui";
+import { useAuth0 } from "@auth0/auth0-react";
 
 // Your mock data
 const mockData: Application[] = [
@@ -76,7 +79,7 @@ const mockData: Application[] = [
   },
 ];
 
-function ExcelView() {
+function ExcelViewContent() {
   // Since we're using static mock data, no need for async loading
   // Just use the data directly — it's immediately available
   return (
@@ -93,4 +96,28 @@ function ExcelView() {
   );
 }
 
-export default ExcelView;
+export default function ExcelView() {
+  const { user } = useAuth0();
+
+  return (
+    <CopilotKit
+      runtimeUrl="http://localhost:4000/copilotkit"
+      agent="applications"
+      enableInspector={false}
+      headers={{ "x-user-id": user?.sub || "" }}
+    >
+      <CopilotSidebar
+        defaultOpen={false}
+        clickOutsideToClose={false}
+        instructions="You are an AI assistant for ApplyFlow's application tracking system. Help users manage their job applications, track application status, update application details, and organize their job search."
+        labels={{
+          title: "Applications Assistant",
+          initial: "Hi! How can I help you manage your job applications today?",
+          placeholder: "Ask about your applications...",
+        }}
+      >
+        <ExcelViewContent />
+      </CopilotSidebar>
+    </CopilotKit>
+  );
+}

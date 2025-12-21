@@ -5,7 +5,6 @@ import "@copilotkit/react-ui/styles.css";
 
 import App from "./App.tsx";
 import { Auth0Provider } from "@auth0/auth0-react";
-import { CopilotKit } from "@copilotkit/react-core";
 import { ThemeProvider } from "@/components/theme-provider";
 
 createRoot(document.getElementById("root")!).render(
@@ -21,14 +20,8 @@ createRoot(document.getElementById("root")!).render(
         cacheLocation="localstorage"
         useRefreshTokens={true}
       >
-        <CopilotKit
-          runtimeUrl="http://localhost:4000/copilotkit"
-          agent="applyflow_agent"
-          enableInspector={false}
-        >
-          <App />
-        </CopilotKit>
+        <App />
       </Auth0Provider>
     </ThemeProvider>
-  </StrictMode>,
+  </StrictMode>
 );

@@ -1,5 +1,4 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { CopilotSidebar } from "@copilotkit/react-ui";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import Dashboard from "./pages/Dashboard";
@@ -8,6 +7,7 @@ import ExcelView from "./pages/ExcelView";
 import BucketView from "./pages/BucketView";
 import KanbanView from "./pages/KanbanView";
 import Resumes from "./pages/Resumes";
+import CreateResume from "./pages/CreateResume";
 import Chat from "./pages/Chat";
 import { AppSidebar } from "@/components/app-sidebar";
 import {
@@ -32,7 +32,8 @@ function getBreadcrumb(pathname: string): string {
     "/applications/excel": "Excel View",
     "/applications/bucket": "Bucket View",
     "/applications/kanban": "Kanban View",
-    "/resumes": "Resumes",
+    "/resumes/my-resumes": "My Resumes",
+    "/resumes/create": "Create Resume",
     "/chat": "AI Chat",
   };
   return routes[pathname] || "Dashboard";
@@ -71,7 +72,8 @@ function AppContent() {
           <Route path="/applications/excel" element={<ExcelView />} />
           <Route path="/applications/bucket" element={<BucketView />} />
           <Route path="/applications/kanban" element={<KanbanView />} />
-          <Route path="/resumes" element={<Resumes />} />
+          <Route path="/resumes/my-resumes" element={<Resumes />} />
+          <Route path="/resumes/create" element={<CreateResume />} />
           <Route path="/chat" element={<Chat />} />
         </Routes>
       </SidebarInset>
@@ -110,19 +112,7 @@ function App() {
   if (isAuthenticated) {
     return (
       <BrowserRouter>
-        <CopilotSidebar
-          defaultOpen={false}
-          clickOutsideToClose={false}
-          instructions="You are an AI assistant for ApplyFlow, a job application tracking system. Help users manage their job applications, answer questions about their application status, and provide guidance on job searching and application management."
-          labels={{
-            title: "ApplyFlow Assistant",
-            initial:
-              "Hi! How can I help you manage your job applications today?",
-            placeholder: "Ask about your applications...",
-          }}
-        >
-          <AppContent />
-        </CopilotSidebar>
+        <AppContent />
       </BrowserRouter>
     );
   }

@@ -14,6 +14,10 @@ import {
   Save,
   MousePointerClick,
 } from "lucide-react";
+import { useCopilotAction } from "@copilotkit/react-core";
+import { CopilotKit } from "@copilotkit/react-core";
+import { CopilotSidebar } from "@copilotkit/react-ui";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const statusConfig: Record<
   ApplicationStatus,
@@ -41,8 +45,7 @@ const statusConfig: Record<
   },
   ghosted: {
     label: "Ghosted",
-    className:
-      "bg-muted text-muted-foreground border-border hover:bg-muted/80",
+    className: "bg-muted text-muted-foreground border-border hover:bg-muted/80",
   },
 };
 
@@ -150,19 +153,30 @@ function ApplicationDetailPanel({
 }: ApplicationDetailPanelProps) {
   const [formData, setFormData] = useState<Application | null>(application);
   const [isSaving, setIsSaving] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
 
   // Update form data when application changes
   useEffect(() => {
     setFormData(application);
+    setSaveSuccess(false);
   }, [application]);
 
   const handleSave = () => {
     if (!formData) return;
     setIsSaving(true);
+    setSaveSuccess(false);
+
+    // Simulate save delay
     setTimeout(() => {
       onSave(formData);
       setIsSaving(false);
-    }, 500);
+      setSaveSuccess(true);
+
+      // Clear success message after 2 seconds
+      setTimeout(() => {
+        setSaveSuccess(false);
+      }, 2000);
+    }, 300);
   };
 
   const updateField = (
@@ -196,199 +210,382 @@ function ApplicationDetailPanel({
 
   return (
     <div className="flex flex-col h-full bg-card border border-border/60 rounded-2xl overflow-hidden">
-      {/* Header */}
-      <div className="border-b border-border/60 p-6">
-        <div className="space-y-1">
-          <h2 className="text-2xl font-light leading-tight">
-            {formData.job_title || "Application Details"}
-          </h2>
-          <p className="text-sm text-muted-foreground font-light">
-            {formData.company || "Edit application information"}
-          </p>
+      {/* Content wrapper with key to trigger transition on selection change */}
+      <div
+        key={formData.id}
+        className="flex flex-col h-full animate-in fade-in slide-in-from-right-4 duration-300"
+      >
+        {/* Header with Save Button */}
+        <div className="border-b border-border/60 p-6">
+          <div className="flex items-start justify-between gap-4">
+            <div className="space-y-1 flex-1">
+              <h2 className="text-2xl font-light leading-tight">
+                {formData.job_title || "Application Details"}
+              </h2>
+              <p className="text-sm text-muted-foreground font-light">
+                {formData.company || "Edit application information"}
+              </p>
+            </div>
+            <div className="flex flex-col items-end gap-2">
+              <Button
+                onClick={handleSave}
+                disabled={isSaving}
+                className="h-9 px-4"
+                size="sm"
+              >
+                <Save className="size-3.5" />
+                {isSaving ? "Saving..." : "Save"}
+              </Button>
+              {saveSuccess && (
+                <div className="text-xs text-emerald-600 dark:text-emerald-400 font-medium animate-in fade-in duration-200">
+                  ✓ Saved
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* Content - scrollable */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-6">
-        {/* Status Section */}
-        <div className="space-y-3">
-          <label className="text-sm font-medium text-foreground">
-            Application Status
-          </label>
-          <div className="flex flex-wrap gap-2">
-            {(Object.keys(statusConfig) as ApplicationStatus[]).map(
-              (status) => (
-                <button
-                  key={status}
-                  onClick={() => updateField("status", status)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium border-2 transition-all ${
-                    formData.status === status
-                      ? statusConfig[status].className + " scale-105"
-                      : "border-border/40 text-muted-foreground hover:border-border bg-background"
-                  }`}
+        {/* Content - scrollable */}
+        <div className="flex-1 overflow-y-auto p-6 pb-4 space-y-5">
+          {/* Status Section */}
+          <div className="space-y-3">
+            <label className="text-sm font-medium text-foreground">
+              Application Status
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {(Object.keys(statusConfig) as ApplicationStatus[]).map(
+                (status) => (
+                  <button
+                    key={status}
+                    onClick={() => updateField("status", status)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium border-2 transition-all ${
+                      formData.status === status
+                        ? statusConfig[status].className + " scale-105"
+                        : "border-border/40 text-muted-foreground hover:border-border bg-background"
+                    }`}
+                  >
+                    {statusConfig[status].label}
+                  </button>
+                )
+              )}
+            </div>
+          </div>
+
+          {/* Job Details */}
+          <div className="space-y-4">
+            <h3 className="text-base font-medium border-b border-border/40 pb-2">
+              Position Information
+            </h3>
+
+            <div className="space-y-2">
+              <label className="text-xs font-medium text-foreground">
+                Job Title
+              </label>
+              <Input
+                value={formData.job_title || ""}
+                onChange={(e) => updateField("job_title", e.target.value)}
+                placeholder="e.g., Senior Software Engineer"
+                className="text-sm"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-medium text-foreground">
+                Company
+              </label>
+              <Input
+                value={formData.company || ""}
+                onChange={(e) => updateField("company", e.target.value)}
+                placeholder="e.g., Tech Corp Inc."
+                className="text-sm"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-2">
+                <label className="text-xs font-medium text-foreground">
+                  Salary
+                </label>
+                <div className="relative">
+                  <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground" />
+                  <Input
+                    type="number"
+                    value={formData.pay || ""}
+                    onChange={(e) =>
+                      updateField("pay", parseInt(e.target.value) || 0)
+                    }
+                    placeholder="120000"
+                    className="pl-8 text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-medium text-foreground">
+                  Location
+                </label>
+                <div className="relative">
+                  <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground" />
+                  <Input
+                    value={formData.location || ""}
+                    onChange={(e) => updateField("location", e.target.value)}
+                    placeholder="San Francisco, CA"
+                    className="pl-8 text-sm"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-medium text-foreground">
+                Job URL
+              </label>
+              <div className="relative">
+                <ExternalLink className="absolute left-3 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground" />
+                <Input
+                  value={formData.job_url || ""}
+                  onChange={(e) => updateField("job_url", e.target.value)}
+                  placeholder="https://example.com/job/12345"
+                  className="pl-8 text-sm"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Resume Section */}
+          <div className="space-y-4">
+            <h3 className="text-base font-medium border-b border-border/40 pb-2">
+              Resume Information
+            </h3>
+
+            <div className="space-y-2">
+              <label className="text-xs font-medium text-foreground">
+                Resume Used
+              </label>
+              <div className="relative">
+                <FileText className="absolute left-3 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground" />
+                <Input
+                  value={formData.resume_used || ""}
+                  onChange={(e) => updateField("resume_used", e.target.value)}
+                  placeholder="Resume_2024.pdf"
+                  className="pl-8 text-sm"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Metadata */}
+          <div className="space-y-4">
+            <h3 className="text-base font-medium border-b border-border/40 pb-2">
+              Application Metadata
+            </h3>
+            <div className="rounded-xl bg-muted/30 p-5 space-y-3 text-sm">
+              <div className="flex justify-between items-center py-1">
+                <span className="text-muted-foreground">Application ID</span>
+                <span className="font-mono text-xs text-foreground/70">
+                  {formData.id}
+                </span>
+              </div>
+              {formData.created_at && (
+                <div className="flex justify-between items-center py-1 border-t border-border/20 pt-3">
+                  <span className="text-muted-foreground">Created</span>
+                  <span className="text-foreground font-medium">
+                    {new Date(formData.created_at).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
+                </div>
+              )}
+              {formData.updated_at && (
+                <div className="flex justify-between items-center py-1 border-t border-border/20 pt-3">
+                  <span className="text-muted-foreground">Last Updated</span>
+                  <span className="text-foreground font-medium">
+                    {new Date(formData.updated_at).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
+                </div>
+              )}
+              <div className="flex justify-between items-center py-1 border-t border-border/20 pt-3">
+                <span className="text-muted-foreground">Current Status</span>
+                <Badge
+                  className={`${
+                    statusConfig[formData.status].className
+                  } text-xs`}
                 >
-                  {statusConfig[status].label}
-                </button>
-              )
-            )}
-          </div>
-        </div>
-
-        {/* Job Details */}
-        <div className="space-y-4">
-          <h3 className="text-base font-medium border-b border-border/40 pb-2">
-            Position Information
-          </h3>
-
-          <div className="space-y-2">
-            <label className="text-xs font-medium text-foreground">
-              Job Title
-            </label>
-            <Input
-              value={formData.job_title || ""}
-              onChange={(e) => updateField("job_title", e.target.value)}
-              placeholder="e.g., Senior Software Engineer"
-              className="text-sm"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-xs font-medium text-foreground">
-              Company
-            </label>
-            <Input
-              value={formData.company || ""}
-              onChange={(e) => updateField("company", e.target.value)}
-              placeholder="e.g., Tech Corp Inc."
-              className="text-sm"
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-2">
-              <label className="text-xs font-medium text-foreground">
-                Salary
-              </label>
-              <div className="relative">
-                <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground" />
-                <Input
-                  type="number"
-                  value={formData.pay || ""}
-                  onChange={(e) =>
-                    updateField("pay", parseInt(e.target.value) || 0)
-                  }
-                  placeholder="120000"
-                  className="pl-8 text-sm"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-medium text-foreground">
-                Location
-              </label>
-              <div className="relative">
-                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground" />
-                <Input
-                  value={formData.location || ""}
-                  onChange={(e) => updateField("location", e.target.value)}
-                  placeholder="San Francisco, CA"
-                  className="pl-8 text-sm"
-                />
+                  {statusConfig[formData.status].label}
+                </Badge>
               </div>
             </div>
           </div>
-
-          <div className="space-y-2">
-            <label className="text-xs font-medium text-foreground">
-              Job URL
-            </label>
-            <div className="relative">
-              <ExternalLink className="absolute left-3 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground" />
-              <Input
-                value={formData.job_url || ""}
-                onChange={(e) => updateField("job_url", e.target.value)}
-                placeholder="https://example.com/job/12345"
-                className="pl-8 text-sm"
-              />
-            </div>
-          </div>
         </div>
-
-        {/* Resume Section */}
-        <div className="space-y-4">
-          <h3 className="text-base font-medium border-b border-border/40 pb-2">
-            Resume Information
-          </h3>
-
-          <div className="space-y-2">
-            <label className="text-xs font-medium text-foreground">
-              Resume Used
-            </label>
-            <div className="relative">
-              <FileText className="absolute left-3 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground" />
-              <Input
-                value={formData.resume_used || ""}
-                onChange={(e) => updateField("resume_used", e.target.value)}
-                placeholder="Resume_2024.pdf"
-                className="pl-8 text-sm"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Metadata */}
-        <div className="rounded-xl bg-muted/30 p-4 space-y-2 text-xs">
-          <div className="flex justify-between">
-            <span className="text-muted-foreground">Application ID</span>
-            <span className="font-mono text-[10px]">{formData.id}</span>
-          </div>
-          {formData.created_at && (
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Created</span>
-              <span className="text-foreground">
-                {new Date(formData.created_at).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </span>
-            </div>
-          )}
-          {formData.updated_at && (
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Last Updated</span>
-              <span className="text-foreground">
-                {new Date(formData.updated_at).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </span>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div className="border-t border-border/60 p-4">
-        <Button
-          onClick={handleSave}
-          disabled={isSaving}
-          className="w-full h-10"
-        >
-          <Save className="size-4" />
-          {isSaving ? "Saving..." : "Save Changes"}
-        </Button>
       </div>
     </div>
   );
 }
 
-export default function CardsView() {
+function CardsViewContent() {
   const [applications, setApplications] = useState(mockApplications);
   const [selectedApplication, setSelectedApplication] =
     useState<Application | null>(null);
+
+  // Frontend action for AI agent to set active application
+  useCopilotAction({
+    name: "setActiveApplication",
+    description:
+      "Set the active application in the detail panel by application ID. Use this to show application details to the user.",
+    parameters: [
+      {
+        name: "applicationId",
+        type: "string",
+        description: "The ID of the application to display in the detail panel",
+        required: true,
+      },
+    ],
+    handler: async ({ applicationId }) => {
+      const application = applications.find((app) => app.id === applicationId);
+      if (application) {
+        setSelectedApplication(application);
+        return `Successfully opened application: ${application.job_title} at ${application.company}`;
+      } else {
+        return `Application with ID ${applicationId} not found`;
+      }
+    },
+  });
+
+  useCopilotAction({
+    name: "add_application",
+    description:
+      "Request approval from the user to add a new job application. Provide job details like job_title, company, pay, location, job_url, and status.",
+    renderAndWaitForResponse: ({ args, respond, status }) => {
+      const newApp = args as Partial<Application>;
+
+      return (
+        <div className="p-5 bg-card border border-border/60 rounded-xl space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <div className="space-y-1">
+            <h3 className="text-lg font-medium">Add New Application</h3>
+          </div>
+
+          <div className="bg-muted/30 rounded-lg p-4 space-y-3">
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+              Application Details
+            </p>
+            {newApp.job_title && (
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Position</span>
+                <span className="font-medium text-foreground">
+                  {newApp.job_title}
+                </span>
+              </div>
+            )}
+            {newApp.company && (
+              <div className="flex items-center justify-between text-sm border-t border-border/20 pt-3">
+                <span className="text-muted-foreground">Company</span>
+                <span className="font-medium text-foreground">
+                  {newApp.company}
+                </span>
+              </div>
+            )}
+            {newApp.pay && (
+              <div className="flex items-center justify-between text-sm border-t border-border/20 pt-3">
+                <span className="text-muted-foreground">Salary</span>
+                <span className="font-medium text-foreground">
+                  ${newApp.pay.toLocaleString()}
+                </span>
+              </div>
+            )}
+            {newApp.location && (
+              <div className="flex items-center justify-between text-sm border-t border-border/20 pt-3">
+                <span className="text-muted-foreground">Location</span>
+                <span className="font-medium text-foreground">
+                  {newApp.location}
+                </span>
+              </div>
+            )}
+            {newApp.status && (
+              <div className="flex items-center justify-between text-sm border-t border-border/20 pt-3">
+                <span className="text-muted-foreground">Status</span>
+                <Badge
+                  className={`${
+                    statusConfig[newApp.status as ApplicationStatus].className
+                  } text-xs`}
+                >
+                  {statusConfig[newApp.status as ApplicationStatus].label}
+                </Badge>
+              </div>
+            )}
+            {newApp.job_url && (
+              <div className="flex items-center justify-between text-sm border-t border-border/20 pt-3">
+                <span className="text-muted-foreground">Job URL</span>
+                <a
+                  href={newApp.job_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline text-xs truncate max-w-50"
+                >
+                  {newApp.job_url}
+                </a>
+              </div>
+            )}
+          </div>
+
+          <div
+            className={`flex gap-2 pt-2 ${
+              status !== "executing" ? "hidden" : ""
+            }`}
+          >
+            <Button
+              onClick={() => {
+                if (respond) {
+                  // Create the new application with a unique ID
+                  const application: Application = {
+                    id: `app_${Date.now()}`,
+                    user_id: "user123",
+                    job_title: newApp.job_title || "",
+                    company: newApp.company || "",
+                    pay: newApp.pay,
+                    location: newApp.location,
+                    resume_used: newApp.resume_used,
+                    resume_id: newApp.resume_id,
+                    job_url: newApp.job_url,
+                    status: (newApp.status as ApplicationStatus) || "applied",
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                  };
+
+                  // Add to applications list
+                  setApplications((prev) => [...prev, application]);
+                  setSelectedApplication(application);
+
+                  respond(
+                    `Successfully added application for ${application.job_title} at ${application.company}`
+                  );
+                }
+              }}
+              disabled={status !== "executing"}
+              className="flex-1"
+              size="sm"
+            >
+              Add Application
+            </Button>
+            <Button
+              onClick={() => respond?.("User cancelled the application")}
+              disabled={status !== "executing"}
+              variant="outline"
+              size="sm"
+              className="flex-1"
+            >
+              Cancel
+            </Button>
+          </div>
+        </div>
+      );
+    },
+  });
 
   const handleCardClick = (app: Application) => {
     setSelectedApplication(app);
@@ -419,7 +616,13 @@ export default function CardsView() {
         {/* Stats */}
         <div className="grid grid-cols-2 gap-2">
           {(
-            ["applied", "interviewing", "offer", "rejected", "ghosted"] as ApplicationStatus[]
+            [
+              "applied",
+              "interviewing",
+              "offer",
+              "rejected",
+              "ghosted",
+            ] as ApplicationStatus[]
           )
             .slice(0, 4)
             .map((status) => {
@@ -466,5 +669,31 @@ export default function CardsView() {
         />
       </div>
     </div>
+  );
+}
+
+export default function CardsView() {
+  const { user } = useAuth0();
+
+  return (
+    <CopilotKit
+      runtimeUrl="http://localhost:4000/copilotkit"
+      agent="applications"
+      enableInspector={false}
+      headers={{ "x-user-id": user?.sub || "" }}
+    >
+      <CopilotSidebar
+        defaultOpen={false}
+        clickOutsideToClose={false}
+        instructions="You are an AI assistant for ApplyFlow's application tracking system. Help users manage their job applications, track application status, update application details, and organize their job search."
+        labels={{
+          title: "Applications Assistant",
+          initial: "Hi! How can I help you manage your job applications today?",
+          placeholder: "Ask about your applications...",
+        }}
+      >
+        <CardsViewContent />
+      </CopilotSidebar>
+    </CopilotKit>
   );
 }
