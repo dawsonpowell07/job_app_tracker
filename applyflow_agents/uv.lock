@@ -179,6 +179,25 @@ wheels = [
 ]
 
 [[package]]
+name = "applyflow-agents"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "fastapi" },
+    { name = "google-adk" },
+    { name = "google-cloud-aiplatform", extra = ["adk", "ag2", "agent-engines", "langchain", "llama-index"] },
+    { name = "sse-starlette" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "fastapi", specifier = ">=0.123.10" },
+    { name = "google-adk", specifier = ">=1.21.0" },
+    { name = "google-cloud-aiplatform", extras = ["adk", "ag2", "agent-engines", "langchain", "llama-index"], specifier = ">=1.112.0" },
+    { name = "sse-starlette", specifier = ">=3.0.4" },
+]
+
+[[package]]
 name = "attrs"
 version = "25.4.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1407,25 +1426,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/aa/51/2cb4468b3448a8385ebcd15059d325c9ce67df4e2758d133ab9442b19834/jiter-0.12.0-cp314-cp314t-win32.whl", hash = "sha256:8bbcfe2791dfdb7c5e48baf646d37a6a3dcb5a97a032017741dea9f817dca183", size = 205110, upload-time = "2025-11-09T20:48:47.033Z" },
     { url = "https://files.pythonhosted.org/packages/b2/c5/ae5ec83dec9c2d1af805fd5fe8f74ebded9c8670c5210ec7820ce0dbeb1e/jiter-0.12.0-cp314-cp314t-win_amd64.whl", hash = "sha256:2fa940963bf02e1d8226027ef461e36af472dea85d36054ff835aeed944dd873", size = 205223, upload-time = "2025-11-09T20:48:49.076Z" },
     { url = "https://files.pythonhosted.org/packages/97/9a/3c5391907277f0e55195550cf3fa8e293ae9ee0c00fb402fec1e38c0c82f/jiter-0.12.0-cp314-cp314t-win_arm64.whl", hash = "sha256:506c9708dd29b27288f9f8f1140c3cb0e3d8ddb045956d7757b1fa0e0f39a473", size = 185564, upload-time = "2025-11-09T20:48:50.376Z" },
-]
-
-[[package]]
-name = "job-app-tracker"
-version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "fastapi" },
-    { name = "google-adk" },
-    { name = "google-cloud-aiplatform", extra = ["adk", "ag2", "agent-engines", "langchain", "llama-index"] },
-    { name = "sse-starlette" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "fastapi", specifier = ">=0.123.10" },
-    { name = "google-adk", specifier = ">=1.21.0" },
-    { name = "google-cloud-aiplatform", extras = ["adk", "ag2", "agent-engines", "langchain", "llama-index"], specifier = ">=1.112.0" },
-    { name = "sse-starlette", specifier = ">=3.0.4" },
 ]
 
 [[package]]

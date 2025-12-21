@@ -33,10 +33,21 @@ app.use(
 );
 
 console.log("Initializing CopilotRuntime...");
-console.log("Configuring HttpAgent with URL: http://127.0.0.1:8000");
+console.log("Configuring HttpAgents for multiple specialized agents");
+
+// HttpAgent will automatically forward headers from the request
+// The headers x-user-id and x-tenant-id will be passed through to the ADK agents
 const runtime = new CopilotRuntime({
   agents: {
-    applyflow_agent: new HttpAgent({ url: "http://127.0.0.1:8000/adk" }),
+    applications: new HttpAgent({
+      url: "http://127.0.0.1:8000/agents/applications",
+    }),
+    resumes: new HttpAgent({
+      url: "http://127.0.0.1:8000/agents/resumes",
+    }),
+    insights: new HttpAgent({
+      url: "http://127.0.0.1:8000/agents/insights",
+    }),
   },
 });
 
@@ -52,6 +63,7 @@ app.use("/copilotkit", (req, res, next) => {
       endpoint: "/copilotkit",
       runtime,
       serviceAdapter,
+      logLevel: "debug",
     });
     console.log("Handler created, processing request...");
     return handler(req, res);
@@ -67,6 +79,9 @@ app.listen(PORT, () => {
   console.log(`CopilotKit runtime server started`);
   console.log(`Listening at http://localhost:${PORT}/copilotkit`);
   console.log(`CORS enabled for http://localhost:5173`);
-  console.log(`Backend agent: http://127.0.0.1:8000`);
+  console.log(`\nConnected Agents:`);
+  console.log(`  - Applications: http://127.0.0.1:8000/agents/applications`);
+  console.log(`  - Resumes: http://127.0.0.1:8000/agents/resumes`);
+  console.log(`  - Insights: http://127.0.0.1:8000/agents/insights`);
   console.log(`=================================\n`);
 });

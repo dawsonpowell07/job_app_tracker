@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import type { Application } from "@/types";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const statusColors = {
   applied: "bg-blue-100 text-blue-900 dark:bg-blue-900/40 dark:text-blue-100",
@@ -30,6 +31,26 @@ const statusColors = {
 };
 
 export const columns: ColumnDef<Application>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+  },
   {
     accessorKey: "company",
     header: ({ column }) => (

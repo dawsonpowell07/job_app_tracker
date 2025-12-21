@@ -30,7 +30,7 @@ const mockResumes: Resume[] = [
   { id: "3", name: "Frontend_Resume.pdf", uploadDate: "2023-10-28" },
 ];
 
-export default function Resumes() {
+function ResumesContent() {
   const [resumes, setResumes] = useState<Resume[]>(mockResumes);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isConfirmOpen, setConfirmOpen] = useState(false);
@@ -64,7 +64,7 @@ export default function Resumes() {
     <div className="flex flex-1 flex-col gap-8 p-8 relative">
       <div className="absolute inset-0 -z-10 gradient-mesh-1 opacity-25" />
       <div className="space-y-2">
-        <h1 className="text-5xl tracking-tight">Resumes</h1>
+        <h1 className="text-5xl tracking-tight">My Resumes</h1>
         <p className="text-lg font-light text-muted-foreground">
           Manage and version your resume library
         </p>
@@ -122,4 +122,8 @@ export default function Resumes() {
       </AlertDialog>
     </div>
   );
+}
+
+export default function Resumes() {
+  return <ResumesContent />;
 }

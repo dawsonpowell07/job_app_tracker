@@ -32,6 +32,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useFrontendTool } from "@copilotkit/react-core";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -46,7 +47,7 @@ export function DataTable<TData, TValue>({
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
@@ -71,6 +72,40 @@ export function DataTable<TData, TValue>({
       columnVisibility,
       rowSelection,
       globalFilter,
+    },
+  });
+
+  const highlightCells = (ids: string[]) => {
+    // Build a selection object where keys are row indices
+    const selection: Record<string, boolean> = {};
+
+    table.getRowModel().rows.forEach((row) => {
+      const rowData = row.original as { id?: string };
+      if (rowData.id && ids.includes(rowData.id)) {
+        selection[row.id] = true;
+      }
+    });
+
+    setRowSelection(selection);
+  };
+
+  useFrontendTool({
+    name: "highlightApplicationCells",
+    description:
+      "Highlight cells to make them stand out to the user. useful when you want to draw attention to specific cells or applicaitions",
+    parameters: [
+      {
+        name: "ids",
+        type: "string[]",
+        description: "IDs of the applications to highlight",
+      },
+    ],
+    handler: ({ ids }) => {
+      highlightCells(ids);
+      return {
+        status: "success",
+        message: `Cells highlighted`,
+      };
     },
   });
 
@@ -132,7 +167,7 @@ export function DataTable<TData, TValue>({
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                   </TableHead>
                 ))}
@@ -150,7 +185,7 @@ export function DataTable<TData, TValue>({
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}

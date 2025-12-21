@@ -33,13 +33,13 @@ const data = {
     },
     {
       title: "Applications",
-      url: "/applications/bento-box",
+      url: "/applications/cards",
       icon: LayoutGrid,
       isActive: true,
       items: [
         {
-          title: "Bento Box View",
-          url: "/applications/bento-box",
+          title: "Card View",
+          url: "/applications/cards",
         },
         {
           title: "Timeline View",
@@ -61,8 +61,18 @@ const data = {
     },
     {
       title: "Resumes",
-      url: "/resumes",
+      url: "/resumes/my-resumes",
       icon: FileText,
+      items: [
+        {
+          title: "My Resumes",
+          url: "/resumes/my-resumes",
+        },
+        {
+          title: "Create Resume",
+          url: "/resumes/create",
+        },
+      ],
     },
     {
       title: "Chat",

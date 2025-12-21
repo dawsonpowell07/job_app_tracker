@@ -42,11 +42,11 @@ export function ModeToggle() {
   return (
     <Button
       variant="ghost"
-      className="w-full justify-start gap-2"
+      className="w-full justify-center gap-2"
       onClick={toggleTheme}
     >
       {getThemeIcon()}
-      <span>
+      <span className="group-data-[collapsible=icon]:hidden">
         {themes[currentThemeIndex].charAt(0).toUpperCase() +
           themes[currentThemeIndex].slice(1)}
       </span>
