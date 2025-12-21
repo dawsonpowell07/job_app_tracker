@@ -14,9 +14,9 @@ import {
   Save,
   MousePointerClick,
 } from "lucide-react";
-import { useCopilotAction } from "@copilotkit/react-core";
+import { useCoAgent, useCopilotAction } from "@copilotkit/react-core";
 import { CopilotSidebar } from "@copilotkit/react-ui";
-
+import type { ApplicationAgentState } from "@/types";
 interface AddApplicationInterface {
   job_title: string;
   company: string;
@@ -189,7 +189,7 @@ function ApplicationDetailPanel({
 
   const updateField = (
     field: keyof Application,
-    value: string | number | ApplicationStatus,
+    value: string | number | ApplicationStatus
   ) => {
     if (!formData) return;
     setFormData((prev) => (prev ? { ...prev, [field]: value } : null));
@@ -274,7 +274,7 @@ function ApplicationDetailPanel({
                   >
                     {statusConfig[status].label}
                   </button>
-                ),
+                )
               )}
             </div>
           </div>
@@ -440,6 +440,17 @@ function CardsViewContent() {
   const [applications, setApplications] = useState(mockApplications);
   const [selectedApplication, setSelectedApplication] =
     useState<Application | null>(null);
+
+  const { state, setState } = useCoAgent<ApplicationAgentState>({
+    name: "applications",
+    initialState: { currentView: "cardsView" },
+  });
+
+  // Update agent state when component mounts to reflect current view
+  useEffect(() => {
+    setState({ currentView: "cardsView" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Run only once on mount
 
   // Frontend action for AI agent to set active application
   useCopilotAction({
@@ -623,7 +634,7 @@ function CardsViewContent() {
                         {String(value)}
                       </span>
                     </div>
-                  ),
+                  )
               )}
           </div>
         </div>
@@ -730,7 +741,7 @@ function CardsViewContent() {
 
   const handleSaveApplication = (updated: Application) => {
     setApplications((prev) =>
-      prev.map((app) => (app.id === updated.id ? updated : app)),
+      prev.map((app) => (app.id === updated.id ? updated : app))
     );
     setSelectedApplication(updated);
   };
@@ -764,7 +775,7 @@ function CardsViewContent() {
             .slice(0, 4)
             .map((status) => {
               const count = applications.filter(
-                (app) => app.status === status,
+                (app) => app.status === status
               ).length;
               return (
                 <div

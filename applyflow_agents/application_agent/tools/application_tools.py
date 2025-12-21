@@ -93,3 +93,49 @@ async def set_active_application(application_id: str) -> dict:
         "message": f"Set active application to {application_id}",
         "application_id": application_id,
     }
+
+
+async def add_job_from_url(job_url: str) -> dict:
+    """Add a new job application from a job URL."""
+    await sleep(5)
+    return {
+        "status": "success",
+        "message": f"Added job from URL {job_url}",
+        "data": {
+            "job_title": "Software Engineer",
+            "company": "Tech Corp",
+            "pay": 85000,
+            "location": "San Francisco, CA",
+            "job_url": job_url,
+            "status": "applied",
+        },
+    }
+
+
+def fetch_job_posting(url: str) -> dict:
+    response = requests.get(
+        url,
+        headers={"User-Agent": "ApplyFlowBot/1.0"},
+        timeout=10,
+    )
+    response.raise_for_status()
+
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    for tag in soup(["script", "style", "nav", "footer"]):
+        tag.decompose()
+
+    main = soup.find("main") or soup.find("article") or soup.body
+    if not main:
+        return {"status": "error",
+                "message": "Could not find job posting content",
+                "instructions": "Advise the user to provide the job description directly or add the application themeselves and explain you cannot access the job posting"
+                }
+
+    text = main.get_text(separator="\n", strip=True)
+
+    return {
+        "url": url,
+        "content": text[:12000],
+        "source": "job_posting"
+    }

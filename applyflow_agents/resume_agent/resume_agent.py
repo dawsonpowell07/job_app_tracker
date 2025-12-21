@@ -2,7 +2,7 @@
 
 from google.adk.agents import LlmAgent
 from google.adk.tools.tool_context import ToolContext
-from tools.resume_tools import (
+from resume_agent.tools.resume_tools import (
     get_resume_advice,
     upload_resume,
     get_resumes,
@@ -11,6 +11,8 @@ from tools.resume_tools import (
 )
 from typing import Dict, List
 from pydantic import BaseModel
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def step_progress(tool_context: ToolContext, steps: List[str]) -> Dict[str, str]:

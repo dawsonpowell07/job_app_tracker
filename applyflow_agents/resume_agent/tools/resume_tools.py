@@ -3,7 +3,7 @@ def get_resume_advice(job_description: str, current_resume: str | None = None) -
     return {
         "status": "success",
         "message": "Generated resume advice",
-        "advice": f"Based on the job description, consider highlighting these key areas...",
+        "advice": "Based on the job description, consider highlighting these key areas...",
     }
 
 

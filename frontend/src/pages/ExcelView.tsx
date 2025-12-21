@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { columns } from "@/components/columns";
 import { DataTable } from "@/components/data-table.tsx";
-import type { Application } from "@/types";
+import type { Application, ApplicationAgentState } from "@/types";
+import { useCoAgent } from "@copilotkit/react-core";
 import { CopilotSidebar } from "@copilotkit/react-ui";
 
 // Your mock data
@@ -95,6 +97,17 @@ function ExcelViewContent() {
 }
 
 export default function ExcelView() {
+  const { state, setState } = useCoAgent<ApplicationAgentState>({
+    name: "applications",
+    initialState: { currentView: "excelView" },
+  });
+
+  // Update agent state when component mounts to reflect current view
+  useEffect(() => {
+    setState({ currentView: "excelView" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Run only once on mount
+
   return (
     <CopilotSidebar
       defaultOpen={false}

@@ -39,3 +39,7 @@ export interface AddApplicationInterface {
   job_url?: string;
   resume_used?: string;
 }
+
+export interface ApplicationAgentState {
+    currentView: "cardsView" | "excelView";
+  };

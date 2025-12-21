@@ -1,13 +1,30 @@
 """Application Tracking Agent - Handles CRUD operations for job applications."""
 
 from google.adk.agents import LlmAgent
-from tools.application_tools import (
-    add_application, delete_application, get_applications, set_active_application, update_application)
+from google.adk.agents.callback_context import CallbackContext
+from application_agent.tools.application_tools import (
+    add_application, delete_application, get_applications, set_active_application, update_application
+)
+
+
+def on_before_agent(callback_context: CallbackContext):
+    """
+    Initialize recipe state if it doesn't exist.
+    """
+
+    if "currentView" not in callback_context.state:
+        # Initialize with default recipe
+        currentView = "unknown"
+        callback_context.state["currentView"] = currentView
+
+    return None
+
 
 application_tracking_agent = LlmAgent(
     name="ApplicationTracking",
     model="gemini-2.5-flash",
     description="Manages job applications - add, update, delete, and retrieve applications.",
+    before_agent_callback=on_before_agent,
     instruction="""You are an application tracking assistant. Help users manage their job applications.
 
 Key capabilities:
@@ -25,6 +42,16 @@ Key capabilities:
 
 When adding or updating applications, try to extract as much information as possible from the user's input.
 Be conversational and helpful in guiding users through managing their applications.
+
+The current view is: {{currentView}}. This determines the context of the user's request and the actions you should take.
+Some tools will onlu be available based on the current view. For example, if the user is in the "cardsView" view, you can use the setActiveApplication tool to set the active application in the UI.
+
+Available tools based on the current view:
+- cardsView: setActiveApplication(application id) -> sets the active application in the UI
+- excelView: highlightApplicationCells(application id) -> highlights the application(s) in the UI
+
+NEVER call tools that are not available in the current view. For example, if the user is in the "tableView" view, do not call the setActiveApplication tool.
+This is against our company policy and guidelines and will result in penalties and errors for the user. 
 
 applications = [{
     id: "app1",

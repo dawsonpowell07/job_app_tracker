@@ -1,8 +1,8 @@
 """Insights Agent - Provides analytics and insights on application data."""
 
 from google.adk.agents import LlmAgent
-from tools.analysis_tools import (get_application_stats, get_success_rate,
-                                  get_timeline_insights, get_pay_analysis, get_recommendations)
+from insight_agent.tools.analysis_tools import (get_application_stats, get_success_rate,
+                                                get_timeline_insights, get_pay_analysis, get_recommendations)
 insights_agent = LlmAgent(
     name="InsightsAgent",
     model="gemini-2.5-flash",
