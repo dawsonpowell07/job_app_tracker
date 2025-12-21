@@ -10,7 +10,7 @@ export default function ApplicationsLayout() {
     <CopilotKit
       runtimeUrl="http://localhost:4000/copilotkit"
       agent="applications"
-      enableInspector={false}
+      enableInspector={true}
       headers={{ "x-user-id": user?.sub || "" }}
     >
       <Outlet />
