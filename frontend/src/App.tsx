@@ -23,6 +23,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import CardsView from "./pages/CardsView";
+import ApplicationsLayout from "./layouts/ApplicationsLayout";
 
 function getBreadcrumb(pathname: string): string {
   const routes: Record<string, string> = {
@@ -67,11 +68,13 @@ function AppContent() {
         </header>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/applications/cards" element={<CardsView />} />
-          <Route path="/applications/timeline" element={<TimelineView />} />
-          <Route path="/applications/excel" element={<ExcelView />} />
-          <Route path="/applications/bucket" element={<BucketView />} />
-          <Route path="/applications/kanban" element={<KanbanView />} />
+          <Route path="/applications" element={<ApplicationsLayout />}>
+            <Route path="cards" element={<CardsView />} />
+            <Route path="timeline" element={<TimelineView />} />
+            <Route path="excel" element={<ExcelView />} />
+            <Route path="bucket" element={<BucketView />} />
+            <Route path="kanban" element={<KanbanView />} />
+          </Route>
           <Route path="/resumes/my-resumes" element={<Resumes />} />
           <Route path="/resumes/create" element={<CreateResume />} />
           <Route path="/chat" element={<Chat />} />

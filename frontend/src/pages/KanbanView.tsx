@@ -2,15 +2,13 @@ import { useState } from "react";
 import { mockApplications } from "@/mockData";
 import { KanbanBoard } from "@/components/kanban/KanbanBoard";
 import { useApplicationMutations } from "@/hooks/useApplicationMutations";
-import { CopilotKit } from "@copilotkit/react-core";
 import { CopilotSidebar } from "@copilotkit/react-ui";
-import { useAuth0 } from "@auth0/auth0-react";
 
 function KanbanViewContent() {
   const [applications, setApplications] = useState(mockApplications);
   const { updateApplicationStatus } = useApplicationMutations(
     applications,
-    setApplications,
+    setApplications
   );
 
   return (
@@ -36,28 +34,18 @@ function KanbanViewContent() {
 }
 
 export default function KanbanView() {
-  const { user } = useAuth0();
-
   return (
-    <CopilotKit
-      runtimeUrl="http://localhost:4000/copilotkit"
-      agent="applications"
-      enableInspector={false}
-      headers={{ "x-user-id": user?.sub || "" }}
+    <CopilotSidebar
+      defaultOpen={false}
+      clickOutsideToClose={false}
+      instructions="You are an AI assistant for ApplyFlow's application tracking system. Help users manage their job applications, track application status, update application details, and organize their job search."
+      labels={{
+        title: "Applications Assistant",
+        initial: "Hi! How can I help you manage your job applications today?",
+        placeholder: "Ask about your applications...",
+      }}
     >
-      <CopilotSidebar
-        defaultOpen={false}
-        clickOutsideToClose={false}
-        instructions="You are an AI assistant for ApplyFlow's application tracking system. Help users manage their job applications, track application status, update application details, and organize their job search."
-        labels={{
-          title: "Applications Assistant",
-          initial: "Hi! How can I help you manage your job applications today?",
-          placeholder: "Ask about your applications...",
-        }}
-      >
-        <KanbanViewContent />
-      </CopilotSidebar>
-    </CopilotKit>
+      <KanbanViewContent />
+    </CopilotSidebar>
   );
 }
-

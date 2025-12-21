@@ -9,7 +9,7 @@ export function ModeToggle() {
 
   const themes = ["light", "dark", "system"];
   const [currentThemeIndex, setCurrentThemeIndex] = React.useState(
-    themes.indexOf(theme || "system")
+    themes.indexOf(theme || "system"),
   );
 
   React.useEffect(() => {
