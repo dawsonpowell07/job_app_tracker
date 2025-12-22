@@ -244,3 +244,4 @@ node_modules
 .adk
 .CLAUDE
 infra.md
+*.yml
