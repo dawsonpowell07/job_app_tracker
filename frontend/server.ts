@@ -4,7 +4,8 @@ import cors from "cors";
 import {
   CopilotRuntime,
   copilotRuntimeNodeHttpEndpoint,
-  EmptyAdapter,
+  // EmptyAdapter,
+  GoogleGenerativeAIAdapter
 } from "@copilotkit/runtime";
 import { HttpAgent } from "@ag-ui/client";
 
@@ -52,7 +53,10 @@ const runtime = new CopilotRuntime({
 });
 
 console.log("Creating EmptyAdapter...");
-const serviceAdapter = new EmptyAdapter();
+// const serviceAdapter = new EmptyAdapter();
+
+const serviceAdapter = new GoogleGenerativeAIAdapter({ model: "gemini-2.5-flash" });
+
 
 console.log("CopilotRuntime initialized successfully");
 
