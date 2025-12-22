@@ -10,6 +10,9 @@ class Settings(BaseSettings):
     vertex_resource_id: str
     staging_bucket: str
 
+    # postgres connection url
+    database_url: str
+
     # CORS Configuration
     cors_origins: list[str] = ["*"]
 
