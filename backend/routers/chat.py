@@ -4,7 +4,7 @@ from fastapi import APIRouter, HTTPException
 import vertexai
 
 from settings import settings
-from models.models import (
+from backend.models.chat_models import (
     CreateSessionRequest,
     CreateSessionResponse,
     SendMessageRequest,
