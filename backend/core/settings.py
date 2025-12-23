@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from functools import lru_cache
 
 
 class Settings(BaseSettings):
@@ -30,4 +31,6 @@ class Settings(BaseSettings):
 
 
 # Create a single instance to be imported throughout the app
-settings = Settings()
+@lru_cache()
+def get_settings():
+    return Settings()

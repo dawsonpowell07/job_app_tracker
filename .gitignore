@@ -245,3 +245,4 @@ node_modules
 .CLAUDE
 infra.md
 *.yml
+*.sql

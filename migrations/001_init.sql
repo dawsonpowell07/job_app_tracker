@@ -19,8 +19,6 @@ CREATE TYPE compensation_type AS ENUM (
 CREATE TABLE users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
-  -- Auth0
-  auth0_user_id TEXT NOT NULL UNIQUE, -- auth0|xxxx
   email TEXT,
   name TEXT,
   avatar_url TEXT,

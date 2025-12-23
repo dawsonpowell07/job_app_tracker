@@ -28,7 +28,6 @@ class User(SQLModel, table=True):
 
     id: UUID = Field(default_factory=uuid4, primary_key=True)
 
-    auth0_user_id: str = Field(index=True, unique=True, nullable=False)
     email: Optional[str] = None
     name: Optional[str] = None
     avatar_url: Optional[str] = None

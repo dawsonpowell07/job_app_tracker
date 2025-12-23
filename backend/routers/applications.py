@@ -1,6 +1,9 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends, HTTPException
+from services.applications import ApplicationService
+from db.session import get_session
+from sqlalchemy.ext.asyncio import AsyncSession
 
-
+session: AsyncSession = Depends(get_session)
 router = APIRouter(prefix="/applications", tags=["applications"])
 
 
@@ -11,9 +14,12 @@ def get_applications():
 
 
 @router.get("/{app_id}")
-def get_application(app_id: int):
+async def get_application_by_id(app_id, session: AsyncSession = Depends(get_session)):
  # Implement logic to retrieve and return a specific application by ID
-    pass
+    application = await ApplicationService.get_application_by_id(session, app_id)
+    if not application:
+        raise HTTPException(status_code=404, detail="Application not found")
+    return application
 
 
 @router.post("/")

@@ -2,7 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 # from routers.chat import router as chat_router
 from routers.applications import router as applications_router
-from core.settings import settings
+from core.settings import get_settings
+
+settings = get_settings()
 
 app = FastAPI(
     title=settings.app_title,
