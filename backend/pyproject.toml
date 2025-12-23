@@ -9,6 +9,7 @@ dependencies = [
     "fastapi-clerk-auth>=0.0.9",
     "fastapi[standard]==0.123.10",
     "google-cloud-aiplatform>=1.60.0",
+    "greenlet>=3.3.0",
     "psycopg[binary]>=3.3.2",
     "pydantic-settings>=2.0.0",
     "sqlmodel>=0.0.27",

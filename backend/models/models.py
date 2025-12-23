@@ -26,7 +26,7 @@ class CompensationType(str, Enum):
 class User(SQLModel, table=True):
     __tablename__ = "users"
 
-    id: UUID = Field(default_factory=uuid4, primary_key=True)
+    id: str = Field(primary_key=True)
 
     email: Optional[str] = None
     name: Optional[str] = None
@@ -49,7 +49,7 @@ class Application(SQLModel, table=True):
     __tablename__ = "applications"
 
     id: UUID = Field(default_factory=uuid4, primary_key=True)
-    user_id: UUID = Field(foreign_key="users.id", nullable=False)
+    user_id: str = Field(foreign_key="users.id", nullable=False)
 
     company: str
     job_title: str
@@ -62,6 +62,7 @@ class Application(SQLModel, table=True):
     )
     pay_min: Optional[int] = None
     pay_max: Optional[int] = None
+    pay: Optional[int] = None
     currency: str = Field(default="USD")
 
     status: ApplicationStatus = Field(
@@ -74,8 +75,6 @@ class Application(SQLModel, table=True):
         default_factory=list,
         sa_column=Column(ARRAY(Text), nullable=False),
     )
-    ai_match_score: Optional[float] = None
-    ai_notes: Optional[str] = Field(sa_column=Column(Text))
     ai_metadata: dict = Field(
         default_factory=dict,
         sa_column=Column(JSON, nullable=False),
@@ -101,7 +100,7 @@ class Resume(SQLModel, table=True):
     __tablename__ = "resumes"
 
     id: UUID = Field(default_factory=uuid4, primary_key=True)
-    user_id: UUID = Field(foreign_key="users.id", nullable=False)
+    user_id: str = Field(foreign_key="users.id", nullable=False)
 
     file_name: str
     file_type: Optional[str] = None
@@ -129,7 +128,7 @@ class Label(SQLModel, table=True):
     __tablename__ = "labels"
 
     id: UUID = Field(default_factory=uuid4, primary_key=True)
-    user_id: UUID = Field(foreign_key="users.id", nullable=False)
+    user_id: str = Field(foreign_key="users.id", nullable=False)
 
     name: str
     color: Optional[str] = None

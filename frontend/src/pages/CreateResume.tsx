@@ -1,6 +1,6 @@
 import { CopilotKit } from "@copilotkit/react-core";
 import { CopilotSidebar } from "@copilotkit/react-ui";
-import { useUser } from "@clerk/clerk-react";
+import { useAuth, useUser } from "@clerk/clerk-react";
 
 function CreateResumeContent() {
   return <div className="flex flex-1 flex-col gap-8 p-8 relative"></div>;
