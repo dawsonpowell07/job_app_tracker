@@ -1,4 +1,3 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import Dashboard from "./pages/Dashboard";
@@ -24,6 +23,12 @@ import {
 } from "@/components/ui/sidebar";
 import CardsView from "./pages/CardsView";
 import ApplicationsLayout from "./layouts/ApplicationsLayout";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/clerk-react";
 
 function getBreadcrumb(pathname: string): string {
   const routes: Record<string, string> = {
