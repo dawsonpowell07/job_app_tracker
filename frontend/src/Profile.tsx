@@ -1,13 +1,13 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { useUser } from "@clerk/clerk-react";
 
 const Profile = () => {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isSignedIn, isLoaded } = useUser();
 
-  if (isLoading) {
+  if (!isLoaded) {
     return <div className="loading-text">Loading profile...</div>;
   }
 
-  return isAuthenticated && user ? (
+  return isSignedIn && user ? (
     <div
       style={{
         display: "flex",

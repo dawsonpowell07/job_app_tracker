@@ -1,6 +1,6 @@
 import { CopilotKit } from "@copilotkit/react-core";
 import { CopilotSidebar } from "@copilotkit/react-ui";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useUser } from "@clerk/clerk-react";
 
 function BucketViewContent() {
   return (
@@ -20,14 +20,14 @@ function BucketViewContent() {
 }
 
 export default function BucketView() {
-  const { user } = useAuth0();
+  const { user } = useUser();
 
   return (
     <CopilotKit
       runtimeUrl="http://localhost:4000/copilotkit"
       agent="applications"
       enableInspector={false}
-      headers={{ "x-user-id": user?.sub || "" }}
+      headers={{ "x-user-id": user?.id || "" }}
     >
       <CopilotSidebar
         defaultOpen={false}

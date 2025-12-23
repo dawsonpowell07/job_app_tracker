@@ -1,13 +1,13 @@
 # ApplyFlow - Job Application Tracker
 
-A React + TypeScript + Vite SPA with Auth0 authentication and CopilotKit integration.
+A React + TypeScript + Vite SPA with Clerk authentication and CopilotKit integration.
 
 ## Getting Started
 
 ### Prerequisites
 
 - Node.js 18+ and npm
-- Auth0 account with configured application
+- Clerk account with a publishable key (see [Clerk React Quickstart](https://clerk.com/docs/react/getting-started/quickstart))
 - (Optional) [Copilot Cloud API key](https://cloud.copilotkit.ai) for enhanced features
 
 ### Installation
@@ -18,10 +18,16 @@ npm install
 
 ### Environment Variables
 
-Copy `.env.example` to `.env` and fill in your values:
+Copy `.env.example` to `.env.local` (preferred) or `.env` and fill in your values:
 
 ```bash
-cp .env.example .env
+cp .env.example .env.local
+```
+
+Set your Clerk publishable key:
+
+```bash
+VITE_CLERK_PUBLISHABLE_KEY=YOUR_CLERK_PUBLISHABLE_KEY
 ```
 
 ### Running the Application

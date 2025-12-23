@@ -1,4 +1,5 @@
 import { Circle, GraduationCap } from "lucide-react";
+import { SignInButton, SignUpButton } from "@clerk/clerk-react";
 import LoginButton from "../LoginButton";
 
 export default function LandingPage() {
@@ -55,13 +56,29 @@ export default function LandingPage() {
                 ApplyFlow
               </span>
             </div>
+            <div className="flex items-center gap-3">
+              <SignInButton mode="modal" redirectUrl="/">
+                <button className="px-4 py-2 rounded-full border border-border/60 text-sm font-light hover:border-primary/60 transition-colors duration-300">
+                  Log in
+                </button>
+              </SignInButton>
+              <SignUpButton mode="modal" redirectUrl="/">
+                <button className="px-4 py-2 rounded-full bg-[#134074] text-white text-sm font-light hover:brightness-110 transition duration-300 watercolor-shadow-sm">
+                  Sign up
+                </button>
+              </SignUpButton>
+            </div>
           </div>
         </nav>
 
         {/* Hero Section */}
         <section className="container mx-auto px-8 pt-32 pb-48">
           <div className="max-w-7xl mx-auto">
-            <div className="max-w-4xl animate-fade-in-up">
+            <div className="max-w-4xl animate-fade-in-up space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card/70 border border-border/60 text-sm font-light backdrop-blur-sm">
+                <span className="inline-block w-2 h-2 rounded-full bg-[#134074]" />
+                Built for intentional job seekers
+              </div>
               <div className="mb-16 space-y-6">
                 <h1 className="text-[5rem] md:text-[7rem] lg:text-[9rem] leading-[1.2]">
                   Job search,
@@ -82,6 +99,24 @@ export default function LandingPage() {
 
                 <div className="flex flex-col sm:flex-row gap-4 items-start">
                   <LoginButton />
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6">
+                  {highlights.map((item) => (
+                    <div
+                      key={item.label}
+                      className="rounded-2xl border border-border/60 bg-card/60 px-4 py-4 backdrop-blur-sm space-y-2"
+                    >
+                      <div className="text-sm uppercase tracking-[0.14em] text-muted-foreground">
+                        {item.label}
+                      </div>
+                      <div className="text-2xl font-light text-foreground">
+                        {item.value}
+                      </div>
+                      <p className="text-xs text-muted-foreground/80 font-light leading-relaxed">
+                        {item.detail}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -118,8 +153,52 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Spacer for breathing room */}
-        <div className="h-32" />
+        {/* Workflow Section */}
+        <section className="container mx-auto px-8 pb-32">
+          <div className="max-w-7xl mx-auto">
+            <div className="max-w-3xl space-y-3 mb-14 animate-fade-in-up">
+              <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">
+                Workflow
+              </p>
+              <h3 className="text-4xl md:text-5xl font-light leading-tight">
+                A guided rhythm for your search
+              </h3>
+              <p className="text-lg text-muted-foreground font-light">
+                Capture roles, tailor resumes, and move with clarity using a
+                simple loop that keeps you in control.
+              </p>
+            </div>
+            <div className="grid lg:grid-cols-3 gap-10">
+              {workflow.map((step, index) => (
+                <div
+                  key={step.title}
+                  className="rounded-3xl border border-border/60 bg-card/70 p-8 space-y-4 backdrop-blur-sm animate-fade-in-up"
+                  style={{ animationDelay: `${index * 120}ms` }}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="w-10 h-10 rounded-full bg-gradient-to-br from-[#134074]/80 to-[#8da9c4]/60 text-white flex items-center justify-center font-semibold">
+                      {index + 1}
+                    </span>
+                    <h4 className="text-2xl font-light">{step.title}</h4>
+                  </div>
+                  <p className="text-muted-foreground font-light text-sm leading-relaxed">
+                    {step.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {step.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 rounded-full bg-[#134074]/10 text-xs uppercase tracking-[0.12em] text-[#134074]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* CTA Section */}
         <section className="container mx-auto px-8 py-32">
@@ -128,7 +207,9 @@ export default function LandingPage() {
               <h2 className="text-5xl md:text-6xl lg:text-7xl font-light leading-tight tracking-tight">
                 Begin your journey
               </h2>
-              <LoginButton />
+              <div className="flex justify-center">
+                <LoginButton />
+              </div>
             </div>
           </div>
         </section>
@@ -181,5 +262,49 @@ const features = [
     description:
       "Ask questions, request feedback, explore your data. Your AI assistant understands context and remembers.",
     color: "text-[#8da9c4]",
+  },
+];
+
+const highlights = [
+  {
+    label: "Clarity",
+    value: "Stay on track",
+    detail: "Statuses, owners, and next steps visible across every view.",
+  },
+  {
+    label: "Focus",
+    value: "Fewer tabs",
+    detail: "Resumes, notes, and feedback live in the same workspace.",
+  },
+  {
+    label: "Confidence",
+    value: "Always prepared",
+    detail: "Role-specific versions and reminders before every touchpoint.",
+  },
+  {
+    label: "Momentum",
+    value: "Small wins daily",
+    detail: "Lightweight check-ins keep you shipping applications steadily.",
+  },
+];
+
+const workflow = [
+  {
+    title: "Capture",
+    description:
+      "Save every opportunity with rich details, statuses, and due dates that stay in sync across views.",
+    tags: ["intake", "status", "timeline"],
+  },
+  {
+    title: "Tailor",
+    description:
+      "Spin up focused resume versions with guidance, attach to roles, and keep a clean version history.",
+    tags: ["resumes", "feedback", "templates"],
+  },
+  {
+    title: "Reflect",
+    description:
+      "Review trends, notes, and follow-ups so you always know what to do next and why it matters.",
+    tags: ["insights", "actions", "focus"],
   },
 ];

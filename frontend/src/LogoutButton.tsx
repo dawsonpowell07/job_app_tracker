@@ -1,12 +1,10 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { useClerk } from "@clerk/clerk-react";
 
 const LogoutButton = () => {
-  const { logout } = useAuth0();
+  const { signOut } = useClerk();
   return (
     <button
-      onClick={() =>
-        logout({ logoutParams: { returnTo: window.location.origin } })
-      }
+      onClick={() => signOut({ redirectUrl: "/" })}
       className="button logout"
     >
       Log Out

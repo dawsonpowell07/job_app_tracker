@@ -1,20 +1,20 @@
 import { CopilotKit } from "@copilotkit/react-core";
 import { CopilotSidebar } from "@copilotkit/react-ui";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useUser } from "@clerk/clerk-react";
 
 function CreateResumeContent() {
   return <div className="flex flex-1 flex-col gap-8 p-8 relative"></div>;
 }
 
 export default function CreateResume() {
-  const { user } = useAuth0();
+  const { user } = useUser();
 
   return (
     <CopilotKit
       runtimeUrl="http://localhost:4000/copilotkit"
       agent="resumes"
       enableInspector={false}
-      headers={{ "x-user-id": user?.sub || "" }}
+      headers={{ "x-user-id": user?.id || "" }}
     >
       <CopilotSidebar
         defaultOpen={false}

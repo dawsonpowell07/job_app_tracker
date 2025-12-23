@@ -29,14 +29,14 @@ export function useApplicationMutations(
 
     try {
       // TODO: When backend is integrated, replace with API call:
-      // const { getAccessTokenSilently } = useAuth0();
-      // const token = await getAccessTokenSilently();
+      // const { getToken } = useAuth();
+      // const token = await getToken();
       //
       // await fetch(`http://localhost:8000/api/applications/${applicationId}`, {
-      //   method: 'PATCH',
+      //   method: "PATCH",
       //   headers: {
-      //     'Authorization': `Bearer ${token}`,
-      //     'Content-Type': 'application/json',
+      //     Authorization: `Bearer ${token}`,
+      //     "Content-Type": "application/json",
       //   },
       //   body: JSON.stringify({ status: newStatus }),
       // });

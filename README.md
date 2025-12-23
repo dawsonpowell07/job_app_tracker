@@ -67,14 +67,13 @@ The application is composed of three main services that run concurrently:
 The application requires environment variables to be set up.
 
 1.  **Frontend (`frontend/.env`):**
-    Create a `.env` file in the `frontend` directory by copying the example:
+    Create a `.env.local` (preferred) or `.env` file in the `frontend` directory by copying the example:
     ```bash
-    cp frontend/.env.example frontend/.env
+    cp frontend/.env.example frontend/.env.local
     ```
-    You will need to populate it with your Auth0 credentials:
+    Populate it with your Clerk credentials:
     ```
-    VITE_AUTH0_DOMAIN=your-domain.auth0.com
-    VITE_AUTH0_CLIENT_ID=your-client-id
+    VITE_CLERK_PUBLISHABLE_KEY=YOUR_CLERK_PUBLISHABLE_KEY
     ```
 
 2.  **Backend (`applyflow_agents/.env`):**

@@ -1,5 +1,5 @@
 import { ChevronsUpDown, LogOut } from "lucide-react";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useClerk } from "@clerk/clerk-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -27,7 +27,7 @@ export function NavUser({
   };
 }) {
   const { isMobile } = useSidebar();
-  const { logout } = useAuth0();
+  const { signOut } = useClerk();
 
   const getInitials = (name: string, email: string) => {
     if (name) {
@@ -92,9 +92,7 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              onClick={() =>
-                logout({ logoutParams: { returnTo: window.location.origin } })
-              }
+              onClick={() => signOut({ redirectUrl: "/" })}
               className="font-light"
             >
               <LogOut />

@@ -8,7 +8,7 @@ import {
   GraduationCap,
   Home,
 } from "lucide-react";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useUser, UserButton } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
 
 import { NavMain } from "@/components/nav-main";
@@ -83,7 +83,7 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { user } = useAuth0();
+  const { user } = useUser();
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -111,17 +111,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           user={
             user
               ? {
-                  name: user.name || user.email || "User",
-                  email: user.email || "",
-                  avatar: user.picture || "",
+                  name:
+                    user.fullName ||
+                    user.primaryEmailAddress?.emailAddress ||
+                    "User",
+                  email: user.primaryEmailAddress?.emailAddress || "",
+                  avatar: user.imageUrl || "",
                 }
               : {
-                  name: "User",
-                  email: "",
-                  avatar: "",
-                }
+                name: "User",
+                email: "",
+                avatar: "",
+              }
           }
         />
+        <UserButton afterSignOutUrl="/" />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

@@ -26,8 +26,7 @@ import ApplicationsLayout from "./layouts/ApplicationsLayout";
 import {
   SignedIn,
   SignedOut,
-  SignInButton,
-  UserButton,
+  useAuth,
 } from "@clerk/clerk-react";
 
 function getBreadcrumb(pathname: string): string {
@@ -90,9 +89,9 @@ function AppContent() {
 }
 
 function App() {
-  const { isAuthenticated, isLoading, error } = useAuth0();
+  const { isLoaded } = useAuth();
 
-  if (isLoading) {
+  if (!isLoaded) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
@@ -103,29 +102,18 @@ function App() {
     );
   }
 
-  if (error) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-6">
-        <div className="max-w-md text-center space-y-4 rounded-3xl border border-border/60 bg-card/90 p-12 watercolor-shadow">
-          <div className="text-6xl mb-4">⚠️</div>
-          <h1 className="text-4xl text-foreground">Something went wrong</h1>
-          <p className="text-muted-foreground font-light text-lg">
-            {error.message}
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  if (isAuthenticated) {
-    return (
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
-    );
-  }
-
-  return <LandingPage />;
+  return (
+    <>
+      <SignedIn>
+        <BrowserRouter>
+          <AppContent />
+        </BrowserRouter>
+      </SignedIn>
+      <SignedOut>
+        <LandingPage />
+      </SignedOut>
+    </>
+  );
 }
 
 export default App;

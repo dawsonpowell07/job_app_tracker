@@ -1,5 +1,5 @@
 {
-  "name": "auth0-react",
+  "name": "applyflow-frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@ag-ui/client": "^0.0.42",
-    "@auth0/auth0-react": "^2.11.0",
     "@clerk/clerk-react": "^5.59.2",
     "@copilotkit/react-core": "^1.50.1",
     "@copilotkit/react-ui": "^1.50.1",
