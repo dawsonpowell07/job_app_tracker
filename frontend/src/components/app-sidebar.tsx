@@ -119,13 +119,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   avatar: user.imageUrl || "",
                 }
               : {
-                name: "User",
-                email: "",
-                avatar: "",
-              }
+                  name: "User",
+                  email: "",
+                  avatar: "",
+                }
           }
         />
-        <UserButton afterSignOutUrl="/" />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

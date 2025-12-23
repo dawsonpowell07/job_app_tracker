@@ -13,6 +13,9 @@ import {
   FileText,
   Save,
   MousePointerClick,
+  Search,
+  Filter,
+  Sparkles,
 } from "lucide-react";
 import { useCoAgent, useCopilotAction } from "@copilotkit/react-core";
 import { CopilotSidebar } from "@copilotkit/react-ui";
@@ -440,6 +443,10 @@ function CardsViewContent() {
   const [applications, setApplications] = useState(mockApplications);
   const [selectedApplication, setSelectedApplication] =
     useState<Application | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState<ApplicationStatus | "all">(
+    "all",
+  );
 
   const { state, setState } = useCoAgent<ApplicationAgentState>({
     name: "applications",
@@ -739,6 +746,15 @@ function CardsViewContent() {
     setSelectedApplication(app);
   };
 
+  const filteredApplications = applications.filter((app) => {
+    const matchesSearch =
+      app.job_title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      app.company.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus =
+      statusFilter === "all" ? true : app.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
+
   const handleSaveApplication = (updated: Application) => {
     setApplications((prev) =>
       prev.map((app) => (app.id === updated.id ? updated : app))
@@ -755,10 +771,56 @@ function CardsViewContent() {
       <div className="w-1/3 flex flex-col gap-4 min-h-0">
         {/* Header */}
         <div className="space-y-1">
-          <h1 className="text-3xl tracking-tight">Applications</h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-3xl tracking-tight">Applications</h1>
+            <Badge variant="outline" className="rounded-full border-border/60">
+              {applications.length} total
+            </Badge>
+          </div>
           <p className="text-sm font-light text-muted-foreground">
-            {applications.length} total applications
+            Filter, edit, and sync with your AI assistant.
           </p>
+        </div>
+
+        {/* Filters */}
+        <div className="rounded-2xl border border-border/60 bg-card/60 p-3 space-y-3 backdrop-blur-sm">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Filter className="size-4" />
+              Quick filters
+            </div>
+            <Badge variant="outline" className="text-[10px]">
+              {filteredApplications.length} visible
+            </Badge>
+          </div>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+            <Input
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search by title or company"
+              className="pl-10 text-sm"
+            />
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {(["all", "applied", "interviewing", "offer", "rejected", "ghosted"] as const).map(
+              (status) => (
+                <button
+                  key={status}
+                  onClick={() => setStatusFilter(status)}
+                  className={`px-3 py-1.5 rounded-full text-xs border transition ${
+                    statusFilter === status
+                      ? "border-primary/60 text-primary bg-primary/10"
+                      : "border-border/60 text-muted-foreground hover:border-primary/30"
+                  }`}
+                >
+                  {status === "all"
+                    ? "All"
+                    : statusConfig[status as ApplicationStatus].label}
+                </button>
+              ),
+            )}
+          </div>
         </div>
 
         {/* Stats */}
@@ -797,20 +859,46 @@ function CardsViewContent() {
 
         {/* Cards - scrollable */}
         <div className="flex-1 overflow-y-auto space-y-3 pr-2">
-          {applications.map((app, index) => (
-            <ApplicationCard
-              key={app.id}
-              application={app}
-              onClick={() => handleCardClick(app)}
-              index={index}
-              isSelected={selectedApplication?.id === app.id}
-            />
-          ))}
+          {filteredApplications.length === 0 ? (
+            <div className="rounded-2xl border border-border/60 bg-card/50 p-6 text-center text-sm text-muted-foreground">
+              No applications match your filters.
+            </div>
+          ) : (
+            filteredApplications.map((app, index) => (
+              <ApplicationCard
+                key={app.id}
+                application={app}
+                onClick={() => handleCardClick(app)}
+                index={index}
+                isSelected={selectedApplication?.id === app.id}
+              />
+            ))
+          )}
         </div>
       </div>
 
       {/* Right Column: Active Application */}
       <div className="flex-1 flex flex-col min-h-0">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Sparkles className="size-4 text-primary" />
+            <span>Ask the agent to summarize or draft outreach.</span>
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            className="gap-2"
+            onClick={() =>
+              setState({
+                ...state,
+                currentView: "cardsView",
+              })
+            }
+          >
+            <Sparkles className="size-4" />
+            Nudge agent
+          </Button>
+        </div>
         <ApplicationDetailPanel
           application={selectedApplication}
           onSave={handleSaveApplication}
