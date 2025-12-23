@@ -17,6 +17,8 @@ class Settings(BaseSettings):
     # CORS Configuration
     cors_origins: list[str] = ["*"]
 
+    clerk_jwks_url: str
+
     # App Configuration
     app_title: str = "Job Application Tracker API"
     app_description: str = "API for managing job applications with AI chat assistant"

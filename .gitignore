@@ -246,3 +246,5 @@ node_modules
 infra.md
 *.yml
 *.sql
+AGENTS.md
+.codex

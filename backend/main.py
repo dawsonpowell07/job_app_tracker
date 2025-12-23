@@ -3,8 +3,15 @@ from fastapi.middleware.cors import CORSMiddleware
 # from routers.chat import router as chat_router
 from routers.applications import router as applications_router
 from core.settings import get_settings
+from fastapi_clerk_auth import ClerkConfig, ClerkHTTPBearer, HTTPAuthorizationCredentials
 
 settings = get_settings()
+
+clerk_config = ClerkConfig(
+    jwks_url=settings.clerk_jwks_url)
+
+clerk_auth_guard = ClerkHTTPBearer(config=clerk_config, debug_mode=True)
+
 
 app = FastAPI(
     title=settings.app_title,
